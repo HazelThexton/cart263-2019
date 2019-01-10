@@ -56,9 +56,14 @@ function draw() {
   background(0);
 
   avatar.update();
-  if (avatar.collide(food)) {
-    avatar.eat(food);
+
+  // Checks for collisions with each element of the array and "eats" it if true
+  for (let i = 0; i < food.length; i++) {
+    if (avatar.collide(food[i])) {
+      avatar.eat(food[i]);
+    }
   }
+
   avatar.display();
 
   // Calls the update and display functions for each food object in the array
