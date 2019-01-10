@@ -13,7 +13,7 @@ to overlap another circle (food) in order to grow bigger.
 // Constants defining key quantities
 const AVATAR_SIZE_GAIN = 50;
 const AVATAR_SIZE_LOSS = 0.5;
-var maxSpeed = 50;
+const FOOD_MAX_SPEED = 10;
 
 // Avatar is an object defined by its properties
 let avatar = {
@@ -73,6 +73,7 @@ function draw() {
   checkCollision();
   displayAvatar();
   displayFood();
+  updateFood();
 }
 
 // updateAvatar()
@@ -135,4 +136,17 @@ function displayFood() {
 function positionFood() {
   food.x = random(0,width);
   food.y = random(0,height);
+}
+
+// updateAFood()
+//
+// Set the velocity randomly based on probability and update position
+function updateFood() {
+  food.x = constrain(food.x + food.vx,0,width);
+  food.y = constrain(food.y + food.vy,0,height);
+
+  if (random() <= 0.05){
+    food.vx = (FOOD_MAX_SPEED * random(-1,1));
+    food.vy = (FOOD_MAX_SPEED * random(-1,1));
+  }
 }
