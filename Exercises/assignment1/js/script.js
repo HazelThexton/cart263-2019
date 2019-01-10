@@ -2,8 +2,8 @@
 
 /*****************
 
-Circle Eater
-Pippin Barr
+Exercise 1
+Hazel Thexton
 
 A simple game in which the player controls a shrinking circle with their mouse and tries
 to overlap another circle (food) in order to grow bigger.
@@ -12,7 +12,8 @@ to overlap another circle (food) in order to grow bigger.
 
 // Constants defining key quantities
 const AVATAR_SIZE_GAIN = 50;
-const AVATAR_SIZE_LOSS = 1;
+const AVATAR_SIZE_LOSS = 0.5;
+var maxSpeed = 50;
 
 // Avatar is an object defined by its properties
 let avatar = {
@@ -28,6 +29,8 @@ let avatar = {
 let food = {
   x: 0,
   y: 0,
+  vx: 0,
+  vy: 0,
   size: 64,
   color: '#55cccc'
 }
