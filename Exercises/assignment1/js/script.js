@@ -136,17 +136,22 @@ function displayFood() {
 function positionFood() {
   food.x = random(0,width);
   food.y = random(0,height);
+
+  // Sets initial velocity based on max speed
+  food.vx = (random(-FOOD_MAX_SPEED,FOOD_MAX_SPEED));
+  food.vy = (random(-FOOD_MAX_SPEED,FOOD_MAX_SPEED));
 }
 
-// updateAFood()
+// updateFood()
 //
-// Set the velocity randomly based on probability and update position
+// Set the velocity randomly based on probability and updates position
 function updateFood() {
   food.x = constrain(food.x + food.vx,0,width);
   food.y = constrain(food.y + food.vy,0,height);
 
+  // Changes velocity 5% of the time
   if (random() <= 0.05){
-    food.vx = (FOOD_MAX_SPEED * random(-1,1));
-    food.vy = (FOOD_MAX_SPEED * random(-1,1));
+    food.vx = (random(-FOOD_MAX_SPEED,FOOD_MAX_SPEED));
+    food.vy = (random(-FOOD_MAX_SPEED,FOOD_MAX_SPEED));
   }
 }
