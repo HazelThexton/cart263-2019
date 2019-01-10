@@ -22,7 +22,7 @@ let avatar = {
   maxSize: 64,
   size: 64,
   active: true,
-  color: '#cccc55'
+  color: '#ffffff'
 }
 
 // Food is an object defined by its properties
@@ -133,6 +133,7 @@ function displayFood() {
 // positionFood()
 //
 // Set the food's position properties to random numbers within the canvas dimensions
+// and sets velocity to a random number based on max speed
 function positionFood() {
   food.x = random(0,width);
   food.y = random(0,height);
