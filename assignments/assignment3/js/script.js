@@ -2,12 +2,13 @@
 
 /*****************
 
-Raving Redactionist
-Pippin Barr
+Exercise 3
+Hazel Thexton
 
 You are redacting a document, but it keeps coming unredacted!
 Click the secret information to hide it, don't let all the
-secrets become revealed!
+secrets become revealed! Also you can find secrets by mousing over them and the number
+of secrets you've found is displayed.
 
 ******************/
 
