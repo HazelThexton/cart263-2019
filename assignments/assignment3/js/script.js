@@ -11,8 +11,14 @@ secrets become revealed!
 
 ******************/
 
-// A place to store the jQuery selection of all spans
+// Variable tracking found secrets
+let secretsFound = 0;
+
+// A place to store the jQuery selection of redacted spans
 let $redactSpans;
+// A place to store the jQuery selection of secret spans
+let $secretSpans;
+
 
 // When the document is loaded we call the setup function
 $(document).ready(setup);
@@ -25,15 +31,21 @@ function setup() {
   $redactSpans = $('span.revealed,span.redacted');
   // Set a click handler on these spans (so we know when they're clicked)
   $redactSpans.on('click',spanClicked);
+
+  // Save the selection of all secret spans
+  $secretSpans = $('span.secret');
+  // Set a mouseover handler on these spans (so we know when they're moused over)
+  $secretSpans.on('mouseover',spanMouseover);
+
   // Set an interval of 500 milliseconds to update the state of the page
   setInterval(update,500);
 };
 
-// redactSpanClicked()
+// spanClicked()
 //
 // When a span is clicked we remove its revealed class and add the redacted class
 // thus blacking it out
-function redactSpanClicked() {
+function spanClicked() {
   $(this).removeClass('revealed');
   $(this).addClass('redacted');
 }
@@ -44,7 +56,7 @@ function redactSpanClicked() {
 // using jQuery's each() function which calls the specified function on _each_ of the
 // elements in the selection
 function update() {
-  $redactSpan.each(updateSpan);
+  $redactSpans.each(updateSpan);
 }
 
 // updateSpan()
@@ -58,4 +70,15 @@ function updateSpan() {
     $(this).removeClass('redacted');
     $(this).addClass('revealed');
   }
+}
+
+// spanMouseover()
+//
+// When moused over, adds found class, removes the mouseover event
+// from the found element, and updates the score text
+function spanMouseover() {
+  $(this).addClass('found');
+  $(this).off('mouseover',spanMouseover);
+  secretsFound += 1;
+  $("#secret-count").text("SECRETS FOUND: " + secretsFound);
 }

@@ -30,16 +30,9 @@ div {
   color: red
 }
 
-/* Redacted elements need to be blanked out */
-.secret {
-  background-color: transparent;
-  text-decoration: none;
-  color: black;
-}
-
-/* Redacted elements need to be blanked out */
-.secret-count {
-  background-color: transparent;
+/* Found secrets are highlighted */
+.found {
+  background-color: yellow;
   text-decoration: none;
   color: black;
 }
