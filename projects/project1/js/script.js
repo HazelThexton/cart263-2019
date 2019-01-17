@@ -23,6 +23,7 @@ $(document).ready(setup);
 
 window.addEventListener('deviceorientation', function(event) {
   console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
+  $("#secret-count").text("alpha: " + event.alpha + " beta: " + event.beta + " gamma: " + event.gamma);
 });
 
 // setup()
@@ -54,7 +55,7 @@ function spanClicked() {
 // elements in the selection
 function update() {
   $redactSpans.each(updateSpan);
-  $("#secret-count").text("alpha: " + event.alpha + " beta: " + event.beta + " gamma: " + event.gamma);
+
 }
 
 // updateSpan()
