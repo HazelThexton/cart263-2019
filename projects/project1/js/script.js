@@ -17,13 +17,12 @@ let $boulder;
 // When the document is loaded we call the setup function
 $(document).ready(setup);
 
-$boulder = $('#boulder');
+
 
 window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
   angle = (Math.floor(event.gamma));
-
   if (angle < 0) {
     rollRight();
   }
@@ -34,14 +33,16 @@ window.addEventListener('deviceorientation', function(event) {
 //
 function setup() {
   if (window.orientation == 0){
-    $("#portrait-text").show()
+    $("span.portrait-text").show()
     $("span.game-elements").hide();
   }
   else {
-    $("#portrait-text").hide();
+    $("span.portrait-text").hide();
     $("span.game-elements").show();
   }
+  $boulder = $('img.boulder');
   window.update();
+
 };
 
 // update()
@@ -62,6 +63,6 @@ function update() {
 
 function rollRight() {
   let incline = Math.floor(map(angle,-90,0,0,2500));
-  $boulder.addClass('roll-right',incline);
+  $boulder.addClass('roll_right',5000)
   console.log(incline);
 }

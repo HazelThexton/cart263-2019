@@ -41,8 +41,6 @@ div {
 .boulder {
   display: block;
   width: 20%;
-  height: 20%;
-  margin: auto;
   margin-top: 10%;
 }
 
@@ -54,8 +52,9 @@ div {
 }
 
 .roll_left {
-  left: 200px;
+  left: 2000px;
 }
 .roll_right {
   right: 2000px;
+  position: absolute;
 }
