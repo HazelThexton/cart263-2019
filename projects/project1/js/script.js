@@ -10,17 +10,23 @@ Sisyphus
 ******************/
 
 // A place to store the angle of the mobile device
-let $angle;
+let angle;
+let $boulder;
 
 
 // When the document is loaded we call the setup function
 $(document).ready(setup);
 
+$boulder = $('#boulder');
+
 window.addEventListener('deviceorientation', function(event) {
-  // Gives us a value for the angle of the mobile device on the x axis
+  // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
-  $angle = $(int(event.beta));
-  console.log($angle);
+  angle = (Math.floor(event.gamma));
+
+  if (angle < 0) {
+    rollRight();
+  }
 });
 
 // setup()
@@ -54,13 +60,8 @@ function update() {
   });
 }
 
-// spanMouseover()
-//
-// When moused over, adds found class, removes the mouseover event
-// from the found element, and updates the score text
-function spanMouseover() {
-  $(this).addClass('found');
-  $(this).off('mouseover',spanMouseover);
-  secretsFound += 1;
-
+function rollRight() {
+  let incline = Math.floor(map(angle,-90,0,0,2500));
+  $boulder.addClass('roll-right',incline);
+  console.log(incline);
 }

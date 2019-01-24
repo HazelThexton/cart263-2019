@@ -67,7 +67,7 @@ function fire() {
     // Animate the 'fire' class on so the bullet moves across the screen
     // Note that I had to include jQuery UI in my libraries in index.html
     // in order to be able ANIMATE addClass like this
-    $bullet.addClass('fire',250);
+    $bullet.addClass('fire',-500);
 
     // Add the fired class to style the bullet to
     // signal that it has been fired

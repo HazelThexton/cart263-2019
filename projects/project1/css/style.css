@@ -53,9 +53,9 @@ div {
   vertical-align: bottom;
 }
 
-.go_left {
-  left: 2000px;
+.roll_left {
+  left: 200px;
 }
-.go_left {
+.roll_right {
   right: 2000px;
 }
