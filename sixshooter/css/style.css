@@ -7,18 +7,9 @@ Six Shooter
 
 body {
 	margin: 50px;
-	overflow-x: hidden;
+	overflow-x: hidden; /* Allows our bullets to go off screen without creating a scrollbar */
 	font-family: Helvetica, sans-serif;
 	font-size: 4em;
-	font-weight: bold;
-	user-select: none;
-}
-
-h1 {
-	margin: 50px;
-	overflow-x: hidden;
-	font-family: Helvetica, sans-serif;
-	font-size: 7em;
 	font-weight: bold;
 	user-select: none;
 }
