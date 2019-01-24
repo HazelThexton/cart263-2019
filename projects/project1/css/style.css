@@ -10,18 +10,19 @@ body {
   font-weight: bold;
   user-select: none;
   text-align: center;
+  overflow-y: hidden;
 }
 
 /* Just some general syling of the page for aesthetics */
 h1 {
   margin-top: 5%;
-	font-size: 6em;
+	font-size: 5em;
 }
 
 h2 {
   margin: 50px;
 	font-family: Helvetica, sans-serif;
-	font-size: 5em;
+	font-size: 4em;
 	font-weight: bold;
 	user-select: none;
   text-align: center;
