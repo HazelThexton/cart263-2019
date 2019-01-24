@@ -7,32 +7,45 @@ Raving Redactionist CSS.
 /* Just some general syling of the page for aesthetics */
 body {
   font-family: Courier, monospace;
-  width: 800px;
-  margin-left: 100px;
-  margin-top: 100px;
+  margin: auto;
+}
+
+/* Just some general syling of the page for aesthetics */
+h1 {
+  margin: 50px;
+	font-family: Helvetica, sans-serif;
+	font-size: 6em;
+	font-weight: bold;
+	user-select: none;
+  text-align: center;
 }
 
 div {
-  margin-top: 1em;
 }
 
 /* Redacted elements need to be blanked out */
-.redacted {
-  background-color: black;
-  color: transparent;
-  text-decoration: none;
+.game-elements {
+  display: none;
 }
 
-/* Revealed elements need to be highlighted because it's a disaster! */
-.revealed {
-  background-color: transparent;
-  text-decoration: underline;
-  color: red
+/* Redacted elements need to be blanked out */
+.boulder {
+  display: block;
+  width: 20%;
+  height: 20%;
+  margin: auto;
 }
 
-/* Found secrets are highlighted */
-.found {
-  background-color: yellow;
-  text-decoration: none;
-  color: black;
+/* Redacted elements need to be blanked out */
+.ground {
+  width: 100%;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.go_left {
+  left: 2000px;
+}
+.go_left {
+  right: 2000px;
 }

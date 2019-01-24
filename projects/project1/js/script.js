@@ -22,31 +22,25 @@ let $secretSpans;
 $(document).ready(setup);
 
 window.addEventListener('deviceorientation', function(event) {
-  console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
-  $("#secret-count").text("alpha: " + event.alpha + " beta: " + event.beta + " gamma: " + event.gamma);
+  console.log('angle: ' + event.beta);
 });
 
 // setup()
 //
 // Sets the click handler and starts the time loop
 function setup() {
-  // Save the selection of all redaction spans (since we do stuff to them multiple times)
-  $redactSpans = $('span.revealed,span.redacted');
-  // Set a click handler on these spans (so we know when they're clicked)
-  $redactSpans.on('click',spanClicked);
+  if (window.orientation == 0){
+    $("#portrait-text").text( "Turn your device!" );
+    $("span.game-elements").hide();
+  }
+  else {
+    $("#portrait-text").text(" ");
+    $("span.game-elements").show();
 
+  }
   // Set an interval of 500 milliseconds to update the state of the page
-  setInterval(update,500);
+  window.update();
 };
-
-// spanClicked()
-//
-// When a span is clicked we remove its revealed class and add the redacted class
-// thus blacking it out
-function spanClicked() {
-  $(this).removeClass('revealed');
-  $(this).addClass('redacted');
-}
 
 // update()
 //
@@ -54,7 +48,17 @@ function spanClicked() {
 // using jQuery's each() function which calls the specified function on _each_ of the
 // elements in the selection
 function update() {
-  $redactSpans.each(updateSpan);
+  $(window).on("orientationchange", function(event) {
+    if (window.orientation == 0){
+      $("#portrait-text").text( "Turn your device!" );
+      $("span.game-elements").hide();
+    }
+    else {
+      $("#portrait-text").text(" ");
+      $("span.game-elements").show();
+
+    }
+  });
 
 }
 
