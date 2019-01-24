@@ -30,12 +30,10 @@ function setup() {
   if (window.orientation == 0){
     $("#portrait-text").show()
     $("span.game-elements").hide();
-    $("#title-text").css("font-size","8em");
   }
   else {
     $("#portrait-text").hide();
     $("span.game-elements").show();
-    $("#title-text").css("font-size","3em");
   }
   window.update();
 };
@@ -46,14 +44,12 @@ function setup() {
 function update() {
   $(window).on("orientationchange", function(event) {
     if (window.orientation == 0){
-      $("#portrait-text").show()
+      $("span.portrait-text").show()
       $("span.game-elements").hide();
-      $("#title-text").css("font-size","8em");
     }
     else {
-      $("#portrait-text").hide();
+      $("span.portrait-text").hide();
       $("span.game-elements").show();
-      $("#title-text").css("font-size","3em");
     }
   });
 }
