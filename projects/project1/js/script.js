@@ -24,12 +24,12 @@ window.addEventListener('deviceorientation', function(event) {
   // and stores it in the angle variable
   angle = (Math.floor(event.gamma));
 
-  if (angle < 0) {
+  if (angle < 2 && angle > -90) {
     rollRight();
   }
-  angle = (Math.floor(event.gamma));
-  if (angle > 0) {
+  if (angle < -90 && angle > -180) {
     rollLeft();
+
   }
 });
 
@@ -46,8 +46,6 @@ function setup() {
     $("span.game-elements").show();
   }
   $boulder = $('img.boulder');
-  $('.roll_right').css('left',window.width);
-  console.log(window.width);
   window.update();
 
 };
@@ -73,19 +71,21 @@ function rollRight() {
   //$boulder.addClass('roll_right',incline)
   $boulder.animate({
     left: screen.width,
-  }, 5000, function() {
+  }, incline, function() {
     // Animation complete.
   });
+  console.log("going right" + event.gamma);
 //  $('.roll_right').css('left',window.width);
 }
 
 function rollLeft() {
-  let incline = Math.floor(map(angle,90,0,0,2500));
+  let incline = Math.floor(map(angle,-90,-180,0,2500));
   //$boulder.addClass('roll_right',incline)
   $boulder.animate({
     right: screen.width,
-  }, 5000, function() {
+  }, incline, function() {
     // Animation complete.
   });
+  console.log("going left" + event.gamma);
 //  $('.roll_right').css('left',window.width);
 }
