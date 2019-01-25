@@ -23,7 +23,7 @@ window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
   angle = (Math.floor(event.beta));
-  $(.portrait-text).text(event.beta);
+  $(".portrait-text").text(event.beta);
 
   if (angle < 2 && angle > -90) {
     rollRight();
