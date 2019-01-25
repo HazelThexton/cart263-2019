@@ -33,28 +33,27 @@ div {
 }
 
 /* Redacted elements need to be blanked out */
-.game-elements {
-  display: none;
-}
-
-/* Redacted elements need to be blanked out */
 .boulder {
   display: block;
+  position: relative;
   width: 20%;
+  margin: auto;
   margin-top: 10%;
 }
 
 /* Redacted elements need to be blanked out */
 .ground {
   width: 100%;
-  display: inline-block;
+  display: block;
   vertical-align: bottom;
+  align: left;
+  position: fixed;
 }
 
 .roll_left {
-  left: 2000px;
-}
-.roll_right {
   right: 2000px;
-  position: absolute;
+}
+
+.roll_right {
+  left: 200px;
 }

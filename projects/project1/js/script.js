@@ -23,8 +23,13 @@ window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
   angle = (Math.floor(event.gamma));
+
   if (angle < 0) {
     rollRight();
+  }
+  angle = (Math.floor(event.gamma));
+  if (angle > 0) {
+    rollLeft();
   }
 });
 
@@ -41,6 +46,8 @@ function setup() {
     $("span.game-elements").show();
   }
   $boulder = $('img.boulder');
+  $('.roll_right').css('left',window.width);
+  console.log(window.width);
   window.update();
 
 };
@@ -62,7 +69,23 @@ function update() {
 }
 
 function rollRight() {
-  let incline = Math.floor(map(angle,-90,0,0,2500));
-  $boulder.addClass('roll_right',5000)
-  console.log(incline);
+  let incline = Math.floor(map(angle,0,-90,0,2500));
+  //$boulder.addClass('roll_right',incline)
+  $boulder.animate({
+    left: screen.width,
+  }, 5000, function() {
+    // Animation complete.
+  });
+//  $('.roll_right').css('left',window.width);
+}
+
+function rollLeft() {
+  let incline = Math.floor(map(angle,90,0,0,2500));
+  //$boulder.addClass('roll_right',incline)
+  $boulder.animate({
+    right: screen.width,
+  }, 5000, function() {
+    // Animation complete.
+  });
+//  $('.roll_right').css('left',window.width);
 }

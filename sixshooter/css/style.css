@@ -15,7 +15,7 @@ body {
 }
 
 .bullet {
-	position: relative; /* Relative or absolute position required for animating top and left */
+	position: absolute; /* Relative or absolute position required for animating top and left */
 	color: black;
 }
 
