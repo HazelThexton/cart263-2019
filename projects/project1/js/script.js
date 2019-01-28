@@ -64,16 +64,17 @@ function update() {
 }
 
 function roll() {
-  let incline = Math.sign(Math.floor(map(angle,-180,0,0,2500)));
-  if (angle < 0) {
+  let incline = Math.abs((Math.floor(map(angle,-180,0,0,80))));
+  console.log(incline);
+  if (angle < 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
-      left: '-=1px',
+      left: '-=' + incline + 'px',
     }, 0, function() {
     });
   }
-  if (angle > 0) {
+  if (angle > 0 && parseInt($boulder.css('left')) < screen.width/2) {
     $boulder.animate({
-      left: '+=1px',
+      left: '+=' + incline + 'px',
     }, 0, function() {
     });
   }
