@@ -11,6 +11,8 @@ body {
   user-select: none;
   text-align: center;
   overflow-y: hidden;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Just some general syling of the page for aesthetics */
@@ -39,6 +41,7 @@ div {
   width: 20%;
   margin: auto;
   margin-top: 10%;
+
 }
 
 /* Redacted elements need to be blanked out */
@@ -46,14 +49,6 @@ div {
   width: 100%;
   display: block;
   vertical-align: bottom;
-  align: left;
+  align: center;
   position: fixed;
-}
-
-.roll_left {
-  right: 2000px;
-}
-
-.roll_right {
-  left: 200px;
 }

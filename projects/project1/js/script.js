@@ -23,14 +23,10 @@ window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
   angle = (Math.floor(event.beta));
-  $(".portrait-text").text(event.beta);
+  $(".portrait-text").text(Math.floor(event.beta));
 
-  if (angle < 2 && angle > -90) {
-    rollRight();
-  }
-  if (angle < 90 && angle > 2) {
-    rollLeft();
-
+  if (angle < 180 && angle > -180) {
+    roll();
   }
 });
 
@@ -61,32 +57,24 @@ function update() {
       $("span.game-elements").hide();
     }
     else {
-    //  $("span.portrait-text").hide();
+      //  $("span.portrait-text").hide();
       $("span.game-elements").show();
     }
   });
 }
 
-function rollRight() {
-  let incline = Math.floor(map(angle,2,-90,0,2500));
-  //$boulder.addClass('roll_right',incline)
-  $boulder.animate({
-    left: screen.width,
-  }, incline, function() {
-    // Animation complete.
-  });
-  console.log("going right" + event.beta);
-//  $('.roll_right').css('left',window.width);
-}
-
-function rollLeft() {
-  let incline = Math.floor(map(angle,90,2,0,2500));
-  //$boulder.addClass('roll_right',incline)
-  $boulder.animate({
-    right: screen.width,
-  }, incline, function() {
-    // Animation complete.
-  });
-  console.log("going left" + event.beta);
-//  $('.roll_right').css('left',window.width);
+function roll() {
+  let incline = Math.sign(Math.floor(map(angle,-180,0,0,2500)));
+  if (angle < 0) {
+    $boulder.animate({
+      left: '+=1px',
+    }, incline, function() {
+    });
+  }
+  if (angle > 0) {
+    $boulder.animate({
+      left: '-=1px',
+    }, incline, function() {
+    });
+  }
 }
