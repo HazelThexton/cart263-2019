@@ -67,14 +67,14 @@ function roll() {
   let incline = Math.sign(Math.floor(map(angle,-180,0,0,2500)));
   if (angle < 0) {
     $boulder.animate({
-      left: '+=1px',
-    }, incline, function() {
+      left: '-=1px',
+    }, 0, function() {
     });
   }
   if (angle > 0) {
     $boulder.animate({
-      left: '-=1px',
-    }, incline, function() {
+      left: '+=1px',
+    }, 0, function() {
     });
   }
 }
