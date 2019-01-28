@@ -23,7 +23,6 @@ window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
   angle = (Math.floor(event.beta));
-  $(".portrait-text").text(Math.floor(event.beta));
 
   if (angle < 180 && angle > -180) {
     roll();
@@ -65,14 +64,14 @@ function update() {
 
 function roll() {
   let incline = map(-Math.abs(angle),-180,0,0,20);
-  console.log(incline);
-  if (angle < 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
+  $(".portrait-text").text(Math.floor(incline));
+  if (angle <= 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
       left: '-=' + incline + 'px',
     }, 0, function() {
     });
   }
-  if (angle > 0 && parseInt($boulder.css('left')) < screen.width/2) {
+  if (angle >= 0 && parseInt($boulder.css('left')) < screen.width/2) {
     $boulder.animate({
       left: '+=' + incline + 'px',
     }, 0, function() {
