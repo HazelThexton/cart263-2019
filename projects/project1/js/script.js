@@ -30,12 +30,18 @@ window.addEventListener('deviceorientation', function(event) {
   }
 });
 
-screen.orientation.lock('landscape');
-
 // setup()
 //
 //
 function setup() {
+  if (window.orientation == 0){
+    $("span.portrait-text").show()
+    $("span.game-elements").hide();
+  }
+  else {
+    //$("span.portrait-text").hide();
+    $("span.game-elements").show();
+  }
   $boulder = $('img.boulder');
   window.update();
 
@@ -45,6 +51,16 @@ function setup() {
 //
 // Updates the page
 function update() {
+  $(window).on("orientationchange", function(event) {
+    if (window.orientation == 0){
+      $("span.portrait-text").show()
+      $("span.game-elements").hide();
+    }
+    else {
+      //  $("span.portrait-text").hide();
+      $("span.game-elements").show();
+    }
+  });
 }
 
 function roll() {
