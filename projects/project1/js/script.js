@@ -64,7 +64,7 @@ function update() {
 }
 
 function roll() {
-  let incline = map(Math.abs(angle),180,0,0,20);
+  let incline = map(-Math.abs(angle),-180,0,0,20);
   console.log(incline);
   if (angle < 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
