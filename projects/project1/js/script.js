@@ -30,18 +30,12 @@ window.addEventListener('deviceorientation', function(event) {
   }
 });
 
+screen.orientation.lock('landscape');
+
 // setup()
 //
 //
 function setup() {
-  if (window.orientation == 0){
-    $("span.portrait-text").show()
-    $("span.game-elements").hide();
-  }
-  else {
-    //$("span.portrait-text").hide();
-    $("span.game-elements").show();
-  }
   $boulder = $('img.boulder');
   window.update();
 
@@ -51,20 +45,10 @@ function setup() {
 //
 // Updates the page
 function update() {
-  $(window).on("orientationchange", function(event) {
-    if (window.orientation == 0){
-      $("span.portrait-text").show()
-      $("span.game-elements").hide();
-    }
-    else {
-      //  $("span.portrait-text").hide();
-      $("span.game-elements").show();
-    }
-  });
 }
 
 function roll() {
-  let incline = Math.abs((Math.floor(map(angle,-90,0,0,20))));
+  let incline = Math.abs((Math.floor(map(angle,-50,50,0,20))));
   console.log(incline);
   if (angle < 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
