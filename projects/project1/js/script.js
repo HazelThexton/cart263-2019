@@ -87,7 +87,6 @@ function roll() {
   // with a higher value simulating faster speed
 
   timePerFrame = map(speed,0,100,100,0);
-  console.log(timePerFrame);
   requestAnimationFrame(step);
 
   // Moves the boulder left (if it's within the screen)
@@ -115,7 +114,7 @@ function step(startTime) {
 
 
   if (timeFromLastUpdate > timePerFrame) {
-    $boulder.attr('src', imagePath + `/boulder${frameNumber}.png`);
+    $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
     timeWhenLastUpdate = startTime;
     if (angle >= 0) {
       if (frameNumber >= totalFrames) {
