@@ -14,9 +14,24 @@ let angle;
 // A place to store the boulder image
 let $boulder;
 
+const imagePath = '/assets/images';
+const totalFrames = 6;
+let timePerFrame;
+let timeWhenLastUpdate;
+let timeFromLastUpdate;
+let frameNumber = 1;
+
+// create a set of hidden divs
+// and set their background-image attribute to required images
+// that will force browser to download the images
+$(document).ready((setup) => {
+  for (var i = 1; i < totalFrames + 1; i++) {
+    $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
+  }
+});
 
 // When the document is loaded we call the setup function
-$(document).ready(setup);
+//$(document).ready(setup);
 
 // Detects when the angle of the device changes
 window.addEventListener('deviceorientation', function(event) {
@@ -24,7 +39,7 @@ window.addEventListener('deviceorientation', function(event) {
   // and stores it in the angle variable (returns an integer for easier debugging)
   angle = (Math.floor(event.beta));
 
-// Calls the roll function, which makes the boulder move based on device angle
+  // Calls the roll function, which makes the boulder move based on device angle
   roll();
 });
 
@@ -40,7 +55,7 @@ function setup() {
     $("span.portrait-text").hide();
     $("span.game-elements").show();
   }
-  $boulder = $('img.boulder');
+  $boulder = $('.boulder');
   window.orientationUpdate();
 
 };
@@ -57,7 +72,7 @@ function orientationUpdate() {
       $("span.game-elements").hide();
     }
     else {
-     $("span.portrait-text").hide();
+      $("span.portrait-text").hide();
       $("span.game-elements").show();
     }
   });
@@ -74,18 +89,52 @@ function roll() {
   // The speed variable is applied as the number of pixels the boulder should move either way,
   // with a higher value simulating faster speed
 
-  // Moves the boulder right (if it's within the screen)
+  timePerFrame = map(speed,0,100,100,0);
+  console.log(timePerFrame);
+  requestAnimationFrame(step);
+
+  // Moves the boulder left (if it's within the screen)
   if (angle <= 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
       left: '-=' + speed + 'px',
     }, 0, function() {
     });
   }
-  // Moves the boulder left (if it's within the screen)
+  // Moves the boulder right (if it's within the screen)
   if (angle >= 0 && parseInt($boulder.css('left')) < screen.width/2) {
     $boulder.animate({
       left: '+=' + speed + 'px',
     }, 0, function() {
     });
   }
+
+
+}
+
+function step(startTime) {
+  if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
+
+  timeFromLastUpdate = startTime - timeWhenLastUpdate;
+
+
+  if (timeFromLastUpdate > timePerFrame) {
+    $boulder.attr('src', imagePath + `/boulder${frameNumber}.png`);
+    timeWhenLastUpdate = startTime;
+    if (angle >= 0) {
+      if (frameNumber >= totalFrames) {
+        frameNumber = 1;
+      } else {
+        frameNumber = frameNumber + 1;
+      }
+    }
+    if (angle <= 0) {
+      if (frameNumber <= 1) {
+        frameNumber = 6;
+      } else {
+        frameNumber = frameNumber - 1;
+      }
+    }
+  }
+
+  requestAnimationFrame(step);
 }
