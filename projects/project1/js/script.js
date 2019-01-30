@@ -22,7 +22,7 @@ $(document).ready(setup);
 window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the y axis
   // and stores it in the angle variable
-  angle = (Math.floor(event.gamma));
+  angle = (Math.floor(event.beta));
 
   if (angle < 180 && angle > -180) {
     roll();
