@@ -63,7 +63,7 @@ function update() {
 }
 
 function roll() {
-  let incline = map(-Math.abs(angle),-180,0,0,20);
+  let incline = map(Math.abs(angle),0,90,0,20);
   $(".portrait-text").text(Math.floor(event.beta) + "  " + incline);
   if (angle <= 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
