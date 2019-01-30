@@ -14,7 +14,7 @@ let angle;
 // A place to store the boulder image
 let $boulder;
 
-const imagePath = '/assets/images';
+const imagePath = 'assets/images';
 const totalFrames = 6;
 let timePerFrame;
 let timeWhenLastUpdate;
@@ -49,7 +49,7 @@ function setup() {
     $("span.game-elements").hide();
   }
   else {
-  //  $("span.portrait-text").hide();
+   $("span.portrait-text").hide();
     $("span.game-elements").show();
   }
   $boulder = $('.boulder');
@@ -69,7 +69,7 @@ function orientationUpdate() {
       $("span.game-elements").hide();
     }
     else {
-      //$("span.portrait-text").hide();
+      $("span.portrait-text").hide();
       $("span.game-elements").show();
     }
   });
@@ -111,7 +111,6 @@ function step(startTime) {
   if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
 
   timeFromLastUpdate = startTime - timeWhenLastUpdate;
-$(".portrait-text").text($boulder.attr('src'));
 
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
