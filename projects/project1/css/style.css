@@ -34,7 +34,7 @@ h2 {
 /* The boulder is sized based on % so it scales based on screen size */
 .boulder {
   display: block;
-  position: relative;
+  position: fixed;
   width: 20%;
   margin: auto;
   margin-top: 10%;
@@ -46,5 +46,6 @@ h2 {
   width: 100%;
   display: block;
   vertical-align: bottom;
-  position: fixed;
+  position: absolute;
+  margin-top: 30%;
 }
