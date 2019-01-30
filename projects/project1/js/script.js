@@ -49,7 +49,7 @@ function setup() {
     $("span.game-elements").hide();
   }
   else {
-    $("span.portrait-text").hide();
+  //  $("span.portrait-text").hide();
     $("span.game-elements").show();
   }
   $boulder = $('.boulder');
@@ -69,7 +69,7 @@ function orientationUpdate() {
       $("span.game-elements").hide();
     }
     else {
-      $("span.portrait-text").hide();
+      //$("span.portrait-text").hide();
       $("span.game-elements").show();
     }
   });
@@ -111,7 +111,7 @@ function step(startTime) {
   if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
 
   timeFromLastUpdate = startTime - timeWhenLastUpdate;
-
+$(".portrait-text").text(frameNumber);
 
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
