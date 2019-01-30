@@ -21,6 +21,7 @@ let timeWhenLastUpdate;
 let timeFromLastUpdate;
 let frameNumber = 1;
 
+// When the document is loaded we call the setup function
 // create a set of hidden divs
 // and set their background-image attribute to required images
 // that will force browser to download the images
@@ -30,15 +31,11 @@ $(document).ready((setup) => {
   }
 });
 
-// When the document is loaded we call the setup function
-//$(document).ready(setup);
-
 // Detects when the angle of the device changes
 window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the x axis
   // and stores it in the angle variable (returns an integer for easier debugging)
   angle = (Math.floor(event.beta));
-
   // Calls the roll function, which makes the boulder move based on device angle
   roll();
 });
@@ -91,7 +88,7 @@ function roll() {
 
   timePerFrame = map(speed,0,100,100,0);
   console.log(timePerFrame);
-  requestAnimationFrame(step);
+  //requestAnimationFrame(step);
 
   // Moves the boulder left (if it's within the screen)
   if (angle <= 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
