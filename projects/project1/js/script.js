@@ -38,7 +38,7 @@ function setup() {
     $("span.game-elements").hide();
   }
   else {
-    //$("span.portrait-text").hide();
+    $("span.portrait-text").hide();
     $("span.game-elements").show();
   }
   $boulder = $('img.boulder');
@@ -56,7 +56,7 @@ function update() {
       $("span.game-elements").hide();
     }
     else {
-      //  $("span.portrait-text").hide();
+     $("span.portrait-text").hide();
       $("span.game-elements").show();
     }
   });
@@ -64,7 +64,6 @@ function update() {
 
 function roll() {
   let incline = map(Math.abs(angle),0,90,0,100);
-  $(".portrait-text").text(Math.floor(event.beta) + "  " + incline);
   if (angle <= 0 && parseInt($boulder.css('left')) > -(screen.width/2)) {
     $boulder.animate({
       left: '-=' + incline + 'px',
