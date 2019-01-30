@@ -33,8 +33,8 @@ $(document).ready((setup) => {
 // Detects when the angle of the device changes
 window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the x axis
-  // and stores it in the angle variable (returns an integer for easier debugging)
-  angle = (Math.floor(event.beta));
+  // and stores it in the angle variable 
+  angle = (event.beta);
 
   // Calls the roll function, which makes the boulder move based on device angle
   roll();
@@ -113,14 +113,14 @@ function step(startTime) {
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
     timeWhenLastUpdate = startTime;
-    if (angle >= 0.5) {
+    if (angle >= 0.9) {
       if (frameNumber >= totalFrames) {
         frameNumber = 1;
       } else {
         frameNumber = frameNumber + 1;
       }
     }
-    else if (angle <= -0.5) {
+    else if (angle <= -0.9) {
       if (frameNumber <= 1) {
         frameNumber = 6;
       } else {
