@@ -111,7 +111,7 @@ function step(startTime) {
   if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
 
   timeFromLastUpdate = startTime - timeWhenLastUpdate;
-$(".portrait-text").text(frameNumber);
+$(".portrait-text").text(imagePath + '/boulder' + frameNumber + '.png');
 
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
