@@ -113,14 +113,14 @@ function step(startTime) {
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
     timeWhenLastUpdate = startTime;
-    if (angle >= 3) {
+    if (angle >= 1) {
       if (frameNumber >= totalFrames) {
         frameNumber = 1;
       } else {
         frameNumber = frameNumber + 1;
       }
     }
-    else if (angle <= -3) {
+    else if (angle <= -1) {
       if (frameNumber <= 1) {
         frameNumber = 6;
       } else {
