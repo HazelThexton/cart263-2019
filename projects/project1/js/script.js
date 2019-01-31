@@ -7,6 +7,9 @@ Hazel Thexton
 
 Sisyphus
 
+code for boulder animation adapted from:
+https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
+
 ******************/
 
 // A place to store the angle of the mobile device
@@ -86,7 +89,7 @@ function roll() {
   // The speed variable is applied as the number of pixels the boulder should move either way,
   // with a higher value simulating faster speed
 
-  timePerFrame = map(speed,0,30,100,1);
+  timePerFrame = map(speed,0,30,100,20);
   requestAnimationFrame(step);
 
   // Moves the boulder left (if it's within the screen)
