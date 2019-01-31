@@ -11,6 +11,7 @@ feed a hungry mouth!
 Sounds:
 Buzzing: https://freesound.org/people/soundmary/sounds/194931/
 Chewing: https://freesound.org/people/InspectorJ/sounds/412068/
+Yuck: https://audiojungle.net/item/male-yuck-voice/8493392
 
 ******************/
 
@@ -42,12 +43,12 @@ function setup() {
   // Make it draggable
   $fly.draggable();
 
-  // Get the fly element from the page
+  // Get the cat element from the page
   $cat = $('#cat');
   // Make it draggable
   $cat.draggable({
     revert: true,
-    start: catDropped
+    start: catDragged
   });
 
   // Start up the buzzing of the fly
@@ -78,13 +79,10 @@ function flyDropped (event,ui) {
   setInterval(chew,250);
 }
 
-// flyDropped(event,ui)
+// catDragged(event,ui)
 //
-// Called when a draggable element is dragged over the droppable element (the mouth)
-// In this instance it can only be the fly (it's the only draggable element).
-// The arguments 'event' and 'ui' are automatically passed by jQuery UI and contain
-// helpful information about the event.
-function catDropped (event,ui) {
+// Called on drag start for the cat image.
+function catDragged (event,ui) {
   // And start the yuck sound effect
   yuckSFX.play();
 }
