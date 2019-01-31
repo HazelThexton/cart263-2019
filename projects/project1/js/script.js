@@ -100,7 +100,7 @@ function roll() {
     });
   }
   // Moves the boulder right (if it's within the screen)
-  if (angle >= 0 && parseInt($boulder.css('left')) <= screen.width) {
+  if (angle >= 0 && parseInt($boulder.css('left')) <= screen.width+50) {
     $boulder.animate({
       left: '+=' + speed + 'px',
     }, 0, function() {
