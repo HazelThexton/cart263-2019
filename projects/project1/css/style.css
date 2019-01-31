@@ -43,9 +43,10 @@ h2 {
 
 /* The ground is the width of the screen and is fixed at the bottom */
 .ground {
-  width: 100%;
+  width: 110%;
   display: block;
   vertical-align: bottom;
   position: absolute;
   margin-top: 30%;
+  margin-left: -10px;
 }
