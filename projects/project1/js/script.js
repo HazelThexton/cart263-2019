@@ -89,7 +89,7 @@ function roll() {
   // The speed variable is applied as the number of pixels the boulder should move either way,
   // with a higher value simulating faster speed
 
-  timePerFrame = map(speed,0,30,100,20);
+  timePerFrame = map(speed,0,30,100,50);
   requestAnimationFrame(step);
 
   // Moves the boulder left (if it's within the screen)
