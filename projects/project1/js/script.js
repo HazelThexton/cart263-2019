@@ -17,21 +17,21 @@ let angle;
 // A place to store the boulder image
 let $boulder;
 
+// Constants and variables for our boulder animation
 const imagePath = 'assets/images';
 const totalFrames = 36;
 let timePerFrame;
 let timeWhenLastUpdate;
 let timeFromLastUpdate;
 let frameNumber = 1;
+let speed;
+
+let scrollSpeed = 30;
 
 // create a set of hidden divs
 // and set their background-image attribute to required images
 // that will force browser to download the images
-$(document).ready((setup) => {
-  for (var i = 1; i < totalFrames + 1; i++) {
-    $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
-  }
-});
+$(document).ready((setup));
 
 // Detects when the angle of the device changes
 window.addEventListener('deviceorientation', function(event) {
@@ -58,6 +58,10 @@ function setup() {
   $boulder = $('.boulder');
   window.orientationUpdate();
 
+//preloads our frames
+  for (var i = 1; i < totalFrames + 1; i++) {
+    $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
+  }
 };
 
 // orientationUpdate()
@@ -84,13 +88,15 @@ function orientationUpdate() {
 function roll() {
   // Calculates incline of device based on angle's distance from zero (positive or negative).
   // Based on this number, returns a # from 0-100.
-  let speed = map(Math.abs(angle),0,90,0,100);
+  speed = map(Math.abs(angle),0,90,0,100);
 
   // The speed variable is applied as the number of pixels the boulder should move either way,
   // with a higher value simulating faster speed
 
   timePerFrame = map(speed,0,30,100,50);
   requestAnimationFrame(step);
+
+
 
   // Moves the boulder left (if it's within the screen)
   if (angle <= 0 && parseInt($boulder.css('left')) >= 0) {
@@ -116,24 +122,54 @@ function step(startTime) {
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
     timeWhenLastUpdate = startTime;
-    if (angle >= 0.9) {
+    if (angle >= 0) {
       if (frameNumber >= totalFrames) {
         frameNumber = 1;
       } else {
         frameNumber = frameNumber + 1;
       }
     }
-    else if (angle <= -0.9) {
+    else {
       if (frameNumber <= 1) {
         frameNumber = 6;
       } else {
         frameNumber = frameNumber - 1;
       }
     }
-    else {
-      frameNumber = 1;
-    }
   }
 
   requestAnimationFrame(step);
 }
+
+let BackgroundScroll = function() {
+
+  let step = 1,
+  current = 0,
+  restartPosition = screen.width;
+
+  let scroll = function() {
+    if (angle >= 0){
+      current -= step;
+      if (current == restartPosition){
+        current = 0;
+      }
+    }
+    else {
+      current += step;
+      if (current == 0){
+        current = restartPosition;
+      }
+    }
+
+    $('body').css('backgroundPosition', current + 'px 0');
+
+  };
+
+  this.init = function() {
+    setInterval(scroll, scrollSpeed);
+
+  };
+};
+
+let scroll = new BackgroundScroll();
+scroll.init();

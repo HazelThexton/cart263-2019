@@ -6,6 +6,8 @@ Sisyphus CSS.
 
 /* General syling */
 body {
+background-image: url('../assets/images/background.png');
+background-repeat: repeat-x;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
   user-select: none;
