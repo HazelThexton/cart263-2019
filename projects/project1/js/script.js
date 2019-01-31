@@ -26,7 +26,7 @@ let timeFromLastUpdate;
 let frameNumber = 1;
 let speed;
 
-let scrollSpeed = 10;
+let scrollSpeed = 5;
 
 // create a set of hidden divs
 // and set their background-image attribute to required images
