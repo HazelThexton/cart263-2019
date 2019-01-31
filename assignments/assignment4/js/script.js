@@ -17,6 +17,7 @@ Chewing: https://freesound.org/people/InspectorJ/sounds/412068/
 // Sound effects for the experience
 let buzzSFX = new Audio("assets/sounds/buzz.mp3");
 let crunchSFX = new Audio("assets/sounds/crunch.wav");
+let yuckSFX = new Audio("assets/sounds/yuck.mp3");
 
 // Variable to hold our two key elements
 let $mouth;
@@ -31,8 +32,10 @@ function setup() {
   // Make it droppable
   $mouth.droppable({
     // The drop option specifies a function to call when a drop is completed
+    accept: '#fly',
     drop: flyDropped
   });
+
 
   // Get the fly element from the page
   $fly = $('#fly');
@@ -42,7 +45,10 @@ function setup() {
   // Get the fly element from the page
   $cat = $('#cat');
   // Make it draggable
-  $cat.draggable();
+  $cat.draggable({
+    revert: true,
+    start: catDropped
+  });
 
   // Start up the buzzing of the fly
   buzzSFX.loop = true;
@@ -70,6 +76,17 @@ function flyDropped (event,ui) {
   crunchSFX.play();
   // Use a setInterval to call the chew() function over and over
   setInterval(chew,250);
+}
+
+// flyDropped(event,ui)
+//
+// Called when a draggable element is dragged over the droppable element (the mouth)
+// In this instance it can only be the fly (it's the only draggable element).
+// The arguments 'event' and 'ui' are automatically passed by jQuery UI and contain
+// helpful information about the event.
+function catDropped (event,ui) {
+  // And start the yuck sound effect
+  yuckSFX.play();
 }
 
 // chew()
