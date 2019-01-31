@@ -41,7 +41,7 @@ h2 {
 
 }
 
-/* The ground is the width of the screen and is fixed at the bottom */
+/* The ground is the width of the screen and is placed at the bottom */
 .ground {
   width: 110%;
   display: block;
