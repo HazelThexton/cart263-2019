@@ -31,7 +31,7 @@ let scrollSpeed = 5;
 // create a set of hidden divs
 // and set their background-image attribute to required images
 // that will force browser to download the images
-$(document).ready((setup));
+$(document).ready(setup);
 
 // Detects when the angle of the device changes
 window.addEventListener('deviceorientation', function(event) {
@@ -58,7 +58,7 @@ function setup() {
   $boulder = $('.boulder');
   window.orientationUpdate();
 
-//preloads our frames
+  //preloads our frames
   for (var i = 1; i < totalFrames + 1; i++) {
     $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
   }
@@ -96,7 +96,8 @@ function roll() {
   timePerFrame = map(speed,0,30,100,50);
   requestAnimationFrame(step);
 
-
+  scrollSpeed = map(speed,0,100,100,50);
+  bgScroll();
 
   // Moves the boulder left (if it's within the screen)
   if (angle <= 0 && parseInt($boulder.css('left')) >= 0) {
@@ -141,35 +142,30 @@ function step(startTime) {
   requestAnimationFrame(step);
 }
 
-let BackgroundScroll = function() {
-
-  let step = 1,
-  current = 0,
-  restartPosition = screen.width;
-
-  let scroll = function() {
-    if (angle >= 0){
-      current -= step;
-      if (current == restartPosition){
-        current = 0;
-      }
+function bgScroll() {
+  // Moves the boulder left (if it's within the screen)
+  if (angle <= 0) {
+    if ($('body').css('backgroundPositionX') <= 0) {
+      $('body').css('backgroundPositionX', screen.width + 'px');
     }
     else {
-      current += step;
-      if (current == 0){
-        current = restartPosition;
-      }
+      $('body').animate({
+        backgroundPositionX: "+=" + scrollSpeed + 'px',
+      }, 0, function() {
+      });
     }
+  }
+  // Moves the boulder right (if it's within the screen) //
+  else {
+    if ($('body').css('backgroundPositionX') >= screen.width) {
+      $('body').css('backgroundPositionX', '0px');
+    }
+    else {
+      $('body').animate({
+        backgroundPositionX: "-=" + scrollSpeed + 'px',
+      }, 0, function() {
+      });
+    }
+  }
 
-    $('body').css('backgroundPosition', current + 'px 0');
-
-  };
-
-  this.init = function() {
-    setInterval(scroll, scrollSpeed);
-
-  };
-};
-
-let scroll = new BackgroundScroll();
-scroll.init();
+}
