@@ -96,7 +96,7 @@ function roll() {
   timePerFrame = map(speed,0,30,100,50);
   requestAnimationFrame(step);
 
-  scrollSpeed = map(speed,0,100,50,0);
+  scrollSpeed = map(speed,0,100,20,1);
   bgScroll();
 
   // Moves the boulder left (if it's within the screen)
