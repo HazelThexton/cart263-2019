@@ -151,7 +151,7 @@ function bgScroll() {
     else {
       $('body').animate({
         backgroundPositionX: "+=" + scrollSpeed + 'px',
-      }, 0, function() {
+      }, 5, function() {
       });
     }
   }
@@ -163,7 +163,7 @@ function bgScroll() {
     else {
       $('body').animate({
         backgroundPositionX: "-=" + scrollSpeed + 'px',
-      }, 0, function() {
+      }, 5, function() {
       });
     }
   }
