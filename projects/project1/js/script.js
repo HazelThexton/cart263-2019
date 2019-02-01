@@ -226,7 +226,7 @@ function bgScroll() {
 // Allows us to get around the browser's refusal to autoplay sounds by making the
 // user interact with the page
 function soundToggle() {
-  // Hides the sound button
+  // Changes sound button text and disables it
   $soundButton.text('Sound enabled!');
   $soundButton.removeClass($soundButton);
 }
