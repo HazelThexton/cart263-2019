@@ -130,7 +130,7 @@ function step(startTime) {
         frameNumber = frameNumber + 1;
       }
     }
-    else if (angle <= 0.9) {
+    else if (angle <= -0.9) {
       if (frameNumber <= 1) {
         frameNumber = 6;
       } else {
