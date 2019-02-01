@@ -199,7 +199,7 @@ function bgScroll() {
       // by the speed variable
       $background.animate({
         backgroundPositionX: "-=" + speed + 'px',
-      }, 5, function() {
+      }, 10, function() {
       });
     }
   }
