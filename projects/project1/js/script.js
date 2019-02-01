@@ -227,7 +227,8 @@ function bgScroll() {
 // user interact with the page
 function soundToggle() {
   // Hides the sound button
-  $soundButton.hide( "puff" );
+  $soundButton.text('Sound enabled!');
+  $soundButton.removeClass($soundButton);
 }
 
 // rollingSound()
