@@ -96,7 +96,7 @@ function roll() {
   timePerFrame = map(speed,0,30,100,50);
   requestAnimationFrame(step);
 
-  scrollSpeed = map(speed,0,100,100,50);
+  scrollSpeed = map(speed,0,100,20,0);
   bgScroll();
 
   // Moves the boulder left (if it's within the screen)
@@ -123,19 +123,22 @@ function step(startTime) {
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
     timeWhenLastUpdate = startTime;
-    if (angle >= 0) {
+    if (angle >= 0.9) {
       if (frameNumber >= totalFrames) {
         frameNumber = 1;
       } else {
         frameNumber = frameNumber + 1;
       }
     }
-    else {
+    else if (angle <= 0.9) {
       if (frameNumber <= 1) {
         frameNumber = 6;
       } else {
         frameNumber = frameNumber - 1;
       }
+    }
+    else {
+      frameNumber = 1;
     }
   }
 
