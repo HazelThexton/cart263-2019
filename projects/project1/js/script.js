@@ -10,6 +10,9 @@ Sisyphus
 code for boulder animation adapted from:
 https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
 
+sound source:
+http://soundbible.com/904-Rock-Slide.html
+
 ******************/
 
 // A place to store the angle of the mobile device
@@ -20,6 +23,8 @@ let $boulder;
 let $background;
 // Variable to store the speed of the boulder animation and background scrolling
 let speed;
+// Variable to store our sound effect
+let rollSFX = new Audio("assets/sounds/roll.mp3");
 
 // Constants and variables for our boulder animation
 const imagePath = 'assets/images';
@@ -44,6 +49,8 @@ window.addEventListener('deviceorientation', function(event) {
   requestAnimationFrame(boulderRoll);
   // Calls the background scrolling function, which scrolls the background based on device angle
   bgScroll();
+  // Calls the sound effect function, which plays the sound unless the screen angle is at zero
+  rollingSound();
 });
 
 // setup()
@@ -202,5 +209,20 @@ function bgScroll() {
       }, 10, function() {
       });
     }
+  }
+}
+
+// rollingSound()
+//
+// Plays the rolling sound effect and pauses it if the angle of the device is around zero
+function rollingSound() {
+
+  // Starts the rolling sound effect
+  rollSFX.loop = true;
+  rollSFX.play();
+
+  // Pauses the sound if the angle is around zero
+  if (angle < 0.9 && angle > -0.9) {
+    rollSFX.pause();
   }
 }
