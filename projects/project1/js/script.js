@@ -21,6 +21,8 @@ let angle;
 let $boulder;
 // A place to store our background
 let $background;
+// A place to store our sound button
+let $soundButton
 // Variable to store the speed of the boulder animation and background scrolling
 let speed;
 // Variable to store our sound effect
@@ -72,6 +74,13 @@ function setup() {
 
   // Stores the background class in the variable
   $background = $('.background');
+
+  // Stores the sound button class in the variable
+  $soundButton = $('.soundButton');
+
+  // Set a click handler on the button which calls the soundToggle function (once the user
+  // has interacted with the page sound can autoplay)
+  $soundButton.on('click',soundToggle);
 
   // Calls the orientationUpdate function, which checks if our device has changed orientation
   // and updates accordingly
@@ -212,17 +221,26 @@ function bgScroll() {
   }
 }
 
+// soundToggle()
+//
+// Allows us to get around the browser's refusal to autoplay sounds by making the
+// user interact with the page
+function soundToggle() {
+  // Hides the sound button
+  $soundButton.hide( "puff" );
+}
+
 // rollingSound()
 //
 // Plays the rolling sound effect and pauses it if the angle of the device is around zero
 function rollingSound() {
-
-  // Starts the rolling sound effect
-  rollSFX.loop = true;
-  rollSFX.play();
-
   // Pauses the sound if the angle is around zero
   if (angle < 0.9 && angle > -0.9) {
     rollSFX.pause();
+  }
+  else {
+    // Plays the rolling sound effect
+    rollSFX.loop = true;
+    rollSFX.play();
   }
 }
