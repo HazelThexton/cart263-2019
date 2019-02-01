@@ -16,6 +16,10 @@ https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
 let angle;
 // A place to store the boulder image
 let $boulder;
+// A place to store our background
+let $background;
+// Variable to store the speed of the boulder animation and background scrolling
+let speed;
 
 // Constants and variables for our boulder animation
 const imagePath = 'assets/images';
@@ -24,13 +28,8 @@ let timePerFrame;
 let timeWhenLastUpdate;
 let timeFromLastUpdate;
 let frameNumber = 1;
-let speed;
 
-let scrollSpeed = 5;
-
-// create a set of hidden divs
-// and set their background-image attribute to required images
-// that will force browser to download the images
+// Calls setup when the document is ready
 $(document).ready(setup);
 
 // Detects when the angle of the device changes
@@ -39,8 +38,12 @@ window.addEventListener('deviceorientation', function(event) {
   // and stores it in the angle variable
   angle = (event.beta);
 
-  // Calls the roll function, which makes the boulder move based on device angle
-  roll();
+  // Calls the boulderMove function, which makes the boulder move based on device angle
+  boulderMove();
+  // Calls the boulderRoll function, which controls the boulder animation proper (rolling on itself)
+  requestAnimationFrame(boulderRoll);
+  // Calls the background scrolling function, which scrolls the background based on device angle
+  bgScroll();
 });
 
 // setup()
@@ -48,6 +51,8 @@ window.addEventListener('deviceorientation', function(event) {
 // Sets up the project, including initial screen orientation
 function setup() {
   if (window.orientation == 0){
+    // shows portrait mode text and hides
+    // game elements (boulder, etc) if in portrait mode, and vice versa
     $("span.portrait-text").show()
     $("span.game-elements").hide();
   }
@@ -55,12 +60,21 @@ function setup() {
     $("span.portrait-text").hide();
     $("span.game-elements").show();
   }
+  // Stores the boulder image in the variable
   $boulder = $('.boulder');
+
+  // Stores the background class in the variable
+  $background = $('.background');
+
+  // Calls the orientationUpdate function, which checks if our device has changed orientation
+  // and updates accordingly
   window.orientationUpdate();
 
-  //preloads our frames
+  // preloads our frames by creating a set of hidden divs
+  // and setting their background-image attribute to the frame images.
+  // This will force the browser to download the images
   for (var i = 1; i < totalFrames + 1; i++) {
-    $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
+    $background.append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
   }
 };
 
@@ -82,21 +96,16 @@ function orientationUpdate() {
   });
 }
 
-// roll()
+// boulderMove()
 //
 // Moves the boulder left or right based on device angle, and adjusts speed likewise
-function roll() {
+function boulderMove() {
   // Calculates incline of device based on angle's distance from zero (positive or negative).
   // Based on this number, returns a # from 0-100.
   speed = map(Math.abs(angle),0,90,0,100);
 
-  // The speed variable is applied as the number of pixels the boulder should move either way,
+  // The speed variable is applied as the number of pixels the boulder should boulderMove either way,
   // with a higher value simulating faster speed
-
-  timePerFrame = map(speed,0,30,100,50);
-  requestAnimationFrame(step);
-  scrollSpeed = speed;
-  bgScroll();
 
   // Moves the boulder left (if it's within the screen)
   if (angle <= 0 && parseInt($boulder.css('left')) >= 0) {
@@ -112,16 +121,27 @@ function roll() {
     }, 0, function() {
     });
   }
+
+  // Maps the speed variable to a range which suits the boulder animation
+  timePerFrame = map(speed,0,30,100,50);
 }
 
-function step(startTime) {
+// boulderRoll()
+//
+// Animates the boulder (and Sisyphus) by switching between numbered frames.
+// Speed and direction depends on angle of device.
+function boulderRoll(startTime) {
+  // Establishing links between timing variables
   if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
 
   timeFromLastUpdate = startTime - timeWhenLastUpdate;
 
+  // If more time has elapsed than the assigned time per frame, switches to
+  // the next frame. This then loops.
   if (timeFromLastUpdate > timePerFrame) {
     $boulder.attr('src', imagePath + '/boulder' + frameNumber + '.png');
     timeWhenLastUpdate = startTime;
+    // If the angle is positive, the next frame is +1 (1,2,3,etc.)
     if (angle >= 0.9) {
       if (frameNumber >= totalFrames) {
         frameNumber = 1;
@@ -129,6 +149,8 @@ function step(startTime) {
         frameNumber = frameNumber + 1;
       }
     }
+    // If the angle is negative, the next frame is -1 (6,5,4,etc.) because
+    // the animation is reversing
     else if (angle <= -0.9) {
       if (frameNumber <= 1) {
         frameNumber = 6;
@@ -136,38 +158,49 @@ function step(startTime) {
         frameNumber = frameNumber - 1;
       }
     }
+    // If the angle is around 0, the animation stops and Sisyphus stands still
     else {
       frameNumber = 1;
     }
   }
-
-  requestAnimationFrame(step);
+  // Tells the browser to update the animation
+  requestAnimationFrame(boulderRoll);
 }
 
+// bgScroll()
+//
+// Scrolls the background image faster or slower, right or left, based on angle
 function bgScroll() {
-  // Moves the boulder left (if it's within the screen)
+  // Moves the background right if the angle is positive
   if (angle <= 0) {
-    if ($('body').css('backgroundPositionX') <= 0) {
-      $('body').css('backgroundPositionX', screen.width + 'px');
+    // If background image hits the edge of the screen, returns it to its
+    // starting position
+    if ($background.css('backgroundPositionX') <= 0) {
+      $background.css('backgroundPositionX', screen.width + 'px');
     }
     else {
-      $('body').animate({
-        backgroundPositionX: "+=" + scrollSpeed + 'px',
+      // Similar to the boulderMove function, increases the x position of the background
+      // by the speed variable
+      $background.animate({
+        backgroundPositionX: "+=" + speed + 'px',
       }, 5, function() {
       });
     }
   }
-  // Moves the boulder right (if it's within the screen) //
+  // Moves the background left if the angle is negative
   else {
-    if ($('body').css('backgroundPositionX') >= screen.width) {
-      $('body').css('backgroundPositionX', '0px');
+    // If background image hits the edge of the screen, returns it to its
+    // starting position
+    if ($background.css('backgroundPositionX') >= screen.width) {
+      $background.css('backgroundPositionX', '0px');
     }
     else {
-      $('body').animate({
-        backgroundPositionX: "-=" + scrollSpeed + 'px',
+      // Reduces the x position of the background
+      // by the speed variable
+      $background.animate({
+        backgroundPositionX: "-=" + speed + 'px',
       }, 5, function() {
       });
     }
   }
-
 }
