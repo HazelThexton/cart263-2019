@@ -17,6 +17,7 @@ http://soundbible.com/904-Rock-Slide.html
 
 // A place to store the angle of the mobile device
 let angle;
+
 // A place to store the boulder image
 let $boulder;
 // A place to store our background
@@ -39,6 +40,47 @@ let frameNumber = 1;
 // Calls setup when the document is ready
 $(document).ready(setup);
 
+// setup()
+//
+// Sets up the project, including initial screen orientation and storing objects
+// in variables
+function setup() {
+  if (window.orientation == 0){
+    // shows portrait mode text and hides
+    // game elements (boulder, etc) if in portrait mode, and vice versa
+    $("span.portrait-text").show()
+    $("span.game-elements").hide();
+  }
+  else {
+    $("span.portrait-text").hide();
+    $("span.game-elements").show();
+  }
+
+  // Calls the orientationUpdate function, which checks if our device has changed orientation
+  // and updates accordingly
+  window.orientationUpdate();
+
+  // Stores the boulder image in the variable
+  $boulder = $('.boulder');
+
+  // Stores the background class in the variable
+  $background = $('.background');
+
+  // Stores the sound button class in the variable
+  $soundButton = $('.soundButton');
+
+  // Set a click handler on the button which calls the soundToggle function (once the user
+  // has interacted with the page sound can autoplay)
+  $soundButton.on('click',soundToggle);
+
+  // preloads our frames by creating a set of hidden divs
+  // and setting their background-image attribute to the frame images.
+  // This will force the browser to download the images
+  for (var i = 1; i < totalFrames + 1; i++) {
+    $background.append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
+  }
+};
+
 // Detects when the angle of the device changes
 window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the x axis
@@ -54,45 +96,6 @@ window.addEventListener('deviceorientation', function(event) {
   // Calls the sound effect function, which plays the sound unless the screen angle is at zero
   rollingSound();
 });
-
-// setup()
-//
-// Sets up the project, including initial screen orientation
-function setup() {
-  if (window.orientation == 0){
-    // shows portrait mode text and hides
-    // game elements (boulder, etc) if in portrait mode, and vice versa
-    $("span.portrait-text").show()
-    $("span.game-elements").hide();
-  }
-  else {
-    $("span.portrait-text").hide();
-    $("span.game-elements").show();
-  }
-  // Stores the boulder image in the variable
-  $boulder = $('.boulder');
-
-  // Stores the background class in the variable
-  $background = $('.background');
-
-  // Stores the sound button class in the variable
-  $soundButton = $('.soundButton');
-
-  // Set a click handler on the button which calls the soundToggle function (once the user
-  // has interacted with the page sound can autoplay)
-  $soundButton.on('click',soundToggle);
-
-  // Calls the orientationUpdate function, which checks if our device has changed orientation
-  // and updates accordingly
-  window.orientationUpdate();
-
-  // preloads our frames by creating a set of hidden divs
-  // and setting their background-image attribute to the frame images.
-  // This will force the browser to download the images
-  for (var i = 1; i < totalFrames + 1; i++) {
-    $background.append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
-  }
-};
 
 // orientationUpdate()
 //

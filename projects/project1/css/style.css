@@ -24,10 +24,13 @@ h1 {
 
 h2 {
 	font-family: "Lucida Console", monospace;
-	font-size: 3em;
+	font-size: 2em;
+  color: white;
+  background-color: black;
 	user-select: none;
-  text-align: center;
-  margin-top: 30%;
+  text-align: left;
+  padding: 10%;
+  margin-top: 10%;
 }
 
 .background {
