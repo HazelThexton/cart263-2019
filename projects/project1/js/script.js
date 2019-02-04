@@ -109,7 +109,7 @@ function orientationUpdate() {
       $("span.game-elements").hide('slide');
     }
     else {
-      $("span.portrait-text").hide('');
+      $("span.portrait-text").hide();
       $("span.game-elements").show();
     }
   });
