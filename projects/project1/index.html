@@ -9,15 +9,17 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" />
 
   <!-- Libraries -->
+  <!-- jQuery -->
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 
-        <!-- jQuery UI -->
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+  <!-- P5 (for map function) -->
   <script src="js/libraries/p5.min.js"></script>
 
   <!-- My script(s) -->
@@ -32,21 +34,24 @@
 <body class="background">
 
   <div>
+    <!-- The portrait text is the text that is only displayed in portrait mode -->
     <span class="portrait-text">
-    <h1>-Sisyphus-</h1>
-    <h2>Turn your device on its LEFT side to give Sisyphus a break and let him walk downhill <br><br>
-    Turn your device on its RIGHT side to force Sisyphus to push & pull uphill</h2>
-      <h2 class="soundButton">Click here to enable sound.</h2>
-    </span>
-  </div>
+      <h1>-Sisyphus-</h1>
+      <h2>Turn your device on its LEFT side to give Sisyphus a break and let him walk downhill <br><br>
+        Turn your device on its RIGHT side to force Sisyphus to push & pull his boulder uphill</h2>
 
-  <div>
-    <span class="game-elements">
-    <img class="boulder" src="assets/images/boulder1.png">
-    <img class="ground" src="assets/images/ground.png">
-    </span>
-  </div>
+        <h2 class="soundButton">Click here to enable sound.</h2>
+      </span>
+    </div>
 
-</body>
+    <div>
+      <!-- The game elements are only diplayed in landscape mode -->
+      <span class="game-elements">
+        <img class="boulder" src="assets/images/boulder1.png">
+        <img class="ground" src="assets/images/ground.png">
+      </span>
+    </div>
 
-</html>
+  </body>
+
+  </html>

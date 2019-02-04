@@ -23,16 +23,15 @@ h1 {
 }
 
 h2 {
-	font-family: "Lucida Console", monospace;
-	font-size: 2em;
+	font-size: 1em;
   color: white;
   background-color: black;
-	user-select: none;
   text-align: left;
-  padding: 10%;
-  margin-top: 10%;
+  padding: 11%;
+  margin-bottom: 10%;
 }
 
+/* The background tiles horizontally which allows for looping */
 .background {
   background-image: url('../assets/images/background.png');
   background-repeat: repeat-x;

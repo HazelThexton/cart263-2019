@@ -105,11 +105,11 @@ function orientationUpdate() {
   // game elements (boulder, etc) if in portrait mode, and vice versa
   $(window).on("orientationchange", function(event) {
     if (window.orientation == 0){
-      $("span.portrait-text").show()
-      $("span.game-elements").hide();
+      $("span.portrait-text").show();
+      $("span.game-elements").hide('slide');
     }
     else {
-      $("span.portrait-text").hide();
+      $("span.portrait-text").hide('');
       $("span.game-elements").show();
     }
   });
