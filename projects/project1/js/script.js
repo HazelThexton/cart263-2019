@@ -116,12 +116,12 @@ function orientationUpdate() {
   // (using this instead of toggle() because of bugs with using toggle)
   $(window).on("orientationchange", function(event) {
     if (window.orientation == 0){
-      $portraitElements.show('puff');
-      $landscapeElements.hide('puff');
+      $portraitElements.show('puff','1000');
+      $landscapeElements.hide('puff','1000');
     }
     else {
-      $portraitElements.hide('puff');
-      $landscapeElements.show('puff');
+      $portraitElements.hide('puff','1000');
+      $landscapeElements.show('puff','1000');
     }
 
   });
