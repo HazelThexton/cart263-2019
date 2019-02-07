@@ -46,7 +46,7 @@ let frameNumber = 1;
 
 // Equivalent to p5 map() function (without using p5!)
 const scale = (num, inputMin, inputMax, outputMin, outputMax) => {
-  return (num - inputMin) * (outputMax - outputMin) / (inputMax - in_min) + outputMin;
+  return (num - inputMin) * (outputMax - outputMin) / (inputMax - inputMin) + outputMin;
 }
 
 // Calls setup when the document is ready
