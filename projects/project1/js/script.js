@@ -5,12 +5,12 @@
 Project 1
 Hazel Thexton
 
-Sisyphus
+Sisyphus (or, Could God Make a Game So Pointless Even He Couldn't Win?)
 
 code for boulder animation adapted from:
 https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
 
-code for equivalent to map() function adapted from:
+code for p5-less equivalent to map() function adapted from:
 https://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
 
 sound source:
