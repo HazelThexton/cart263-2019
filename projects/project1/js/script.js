@@ -116,12 +116,12 @@ function orientationUpdate() {
   // (using this instead of toggle() because of bugs with using toggle)
   $(window).on("orientationchange", function(event) {
     if (window.orientation == 0){
-      $portraitElements.show();
-      $landscapeElements.hide();
+      $portraitElements.show('puff');
+      $landscapeElements.hide('puff');
     }
     else {
-      $portraitElements.hide();
-      $landscapeElements.show();
+      $portraitElements.hide('puff');
+      $landscapeElements.show('puff');
     }
 
   });
@@ -244,7 +244,7 @@ function bgScroll() {
 function soundToggle() {
   // Changes sound button text and disables it
   $soundButton.text('Sound enabled!');
-  $soundButton.toggleClass($soundButton);
+  $soundButton.toggleClass();
 }
 
 // rollingSound()
