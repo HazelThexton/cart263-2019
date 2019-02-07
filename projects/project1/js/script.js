@@ -30,7 +30,7 @@ let $boulder;
 // A place to store our background
 let $background;
 // A place to store our sound button
-let $soundButton
+let $soundButton;
 // Variable to store the speed of the boulder animation and background scrolling
 let speed;
 // Variable to store our sound effect
@@ -116,12 +116,12 @@ function orientationUpdate() {
   // (using this instead of toggle() because of bugs with using toggle)
   $(window).on("orientationchange", function(event) {
     if (window.orientation == 0){
-      $portraitElements.show('puff','1000');
-      $landscapeElements.hide('puff','1000');
+      $portraitElements.show();
+      $landscapeElements.hide();
     }
     else {
-      $portraitElements.hide('puff','1000');
-      $landscapeElements.show('puff','1000');
+      $portraitElements.hide();
+      $landscapeElements.show();
     }
 
   });
@@ -242,9 +242,11 @@ function bgScroll() {
 // Allows us to get around the browser's refusal to autoplay sounds by making the
 // user interact with the page
 function soundToggle() {
-  // Changes sound button text and disables it
-  $soundButton.text('Sound enabled!');
-  $soundButton.toggleClass();
+  // Changes sound button text, creates a quick highlight effect and unbinds
+  // the click handler (we don't need to click the button anymore)
+  $(this).effect("highlight", {color:"#ffffff"}, 1000);
+  $(this).text('Sound enabled!');
+  $(this).unbind( "click" );
 }
 
 // rollingSound()
