@@ -10,6 +10,9 @@ Sisyphus
 code for boulder animation adapted from:
 https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
 
+code for equivalent to map() function adapted from:
+https://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
+
 sound source:
 http://soundbible.com/904-Rock-Slide.html
 
@@ -17,6 +20,10 @@ http://soundbible.com/904-Rock-Slide.html
 
 // A place to store the angle of the mobile device
 let angle;
+
+// A place to store elements for landscape and portrait mode
+let $portraitElements;
+let $landscapeElements;
 
 // A place to store the boulder image
 let $boulder;
@@ -37,6 +44,11 @@ let timeWhenLastUpdate;
 let timeFromLastUpdate;
 let frameNumber = 1;
 
+// Equivalent to p5 map() function (without using p5!)
+const scale = (num, inputMin, inputMax, outputMin, outputMax) => {
+  return (num - inputMin) * (outputMax - outputMin) / (inputMax - in_min) + outputMin;
+}
+
 // Calls setup when the document is ready
 $(document).ready(setup);
 
@@ -45,43 +57,41 @@ $(document).ready(setup);
 // Sets up the project, including initial screen orientation and storing objects
 // in variables
 function setup() {
-  if (window.orientation == 0){
-    // shows portrait mode text and hides
-    // game elements (boulder, etc) if in portrait mode, and vice versa
-    $("span.portrait-text").show()
-    $("span.game-elements").hide();
-  }
-  else {
-    $("span.portrait-text").hide();
-    $("span.game-elements").show();
-  }
-
-  // Calls the orientationUpdate function, which checks if our device has changed orientation
-  // and updates accordingly
-  window.orientationUpdate();
-
-  // Stores the boulder image in the variable
+  // Stores elements in variables
   $boulder = $('.boulder');
-
-  // Stores the background class in the variable
+  $landscapeElements = $('.landscape-elements');
+  $portraitElements = $('.portrait-elements');
   $background = $('.background');
-
-  // Stores the sound button class in the variable
   $soundButton = $('.soundButton');
 
   // Set a click handler on the button which calls the soundToggle function (once the user
   // has interacted with the page sound can autoplay)
   $soundButton.on('click',soundToggle);
 
-  // preloads our frames by creating a set of hidden divs
+  // Preloads our frames by creating a set of hidden divs
   // and setting their background-image attribute to the frame images.
   // This will force the browser to download the images
   for (var i = 1; i < totalFrames + 1; i++) {
     $background.append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/boulder${i}.png');"></div>`);
   }
+
+  // Shows portrait mode text and hides
+  // landscape mode elements (boulder, etc) if in portrait mode, and vice versa
+  if (window.orientation == 0){
+    $portraitElements.show();
+    $landscapeElements.hide();
+  }
+  else {
+    $portraitElements.hide();
+    $landscapeElements.show();
+  }
+
+  // Calls the orientationUpdate function, which checks if our device has changed orientation
+  // and updates accordingly
+  orientationUpdate();
 };
 
-// Detects when the angle of the device changes
+// Detects when the angle of the device changes and calls all our movement functions
 window.addEventListener('deviceorientation', function(event) {
   // Gives us a value for the angle of the mobile device on the x axis
   // and stores it in the angle variable
@@ -102,16 +112,18 @@ window.addEventListener('deviceorientation', function(event) {
 // Displays text/images based on whether the phone is in portrait or landscape mode
 function orientationUpdate() {
   // Detects when screen orientation has changed, shows portrait mode text and hides
-  // game elements (boulder, etc) if in portrait mode, and vice versa
+  // landscape elements (boulder, etc) if in portrait mode, and vice versa
+  // (using this instead of toggle() because of bugs with using toggle)
   $(window).on("orientationchange", function(event) {
     if (window.orientation == 0){
-      $("span.portrait-text").show();
-      $("span.game-elements").hide('slide');
+      $portraitElements.show();
+      $landscapeElements.hide();
     }
     else {
-      $("span.portrait-text").hide();
-      $("span.game-elements").show();
+      $portraitElements.hide();
+      $landscapeElements.show();
     }
+
   });
 }
 
@@ -121,7 +133,8 @@ function orientationUpdate() {
 function boulderMove() {
   // Calculates incline of device based on angle's distance from zero (positive or negative).
   // Based on this number, returns a # from 0-100.
-  speed = map(Math.abs(angle),0,90,0,100);
+  speed = scale(Math.abs(angle),0,90,0,100);
+  console.log(speed + " " + scale(Math.abs(angle),0,90,0,100));
 
   // The speed variable is applied as the number of pixels the boulder should boulderMove either way,
   // with a higher value simulating faster speed
@@ -142,7 +155,7 @@ function boulderMove() {
   }
 
   // Maps the speed variable to a range which suits the boulder animation
-  timePerFrame = map(speed,0,30,100,50);
+  timePerFrame = scale(speed,0,30,100,50);
 }
 
 // boulderRoll()
@@ -231,7 +244,7 @@ function bgScroll() {
 function soundToggle() {
   // Changes sound button text and disables it
   $soundButton.text('Sound enabled!');
-  $soundButton.removeClass($soundButton);
+  $soundButton.toggleClass($soundButton);
 }
 
 // rollingSound()
