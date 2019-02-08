@@ -169,13 +169,31 @@ const NUM_OPTIONS = 5;
 // Get setup!
 $(document).ready(setup);
 
+
+
 // setup()
 //
 // In order to be able to play sound, our setup involves clicking once
 // to actually start the game.
 function setup() {
   $('#click-to-begin').on('click',startGame);
+
+  if (annyang) {
+    // Let's define our first command. First the text we expect, and then the function it should call
+    var commands = {
+      'i give up': giveUp,
+      'say it again': repeatAnimal,
+      'i think it is *animals': guessAnswer
+    };
+
+    // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening.
+    annyang.start();
+  }
 }
+
 
 // startGame()
 //
@@ -210,6 +228,23 @@ function newRound() {
   speakAnimal(correctAnimal);
 }
 
+// giveUp()
+//
+// Shakes the correct answer and starts a new round
+function giveUp() {
+
+  // Shakes correct answer button
+  $('<div class="guess"></div>').each(function () {
+    if ($(this).text() === correctAnimal){
+      $(this).effect('shake');
+    }
+});
+// Remove all the buttons
+$('.guess').remove();
+// Start a new round
+setTimeout(newRound,1000);
+}
+
 // speakAnimal(name)
 //
 // Uses ResponsiveVoice to say the specified text backwards!
@@ -235,7 +270,7 @@ function speakAnimal(name) {
 
   // Use ResponsiveVoice to speak the string we generated, with UK English Male voice
   // and the options we just specified.
-  responsiveVoice.speak(reverseAnimal,'UK English Male',options);
+  responsiveVoice.speak(reverseAnimal,'UK English Female',options);
 }
 
 // addButton(label)
@@ -268,4 +303,54 @@ function addButton(label) {
 
   // Finally, add the button to the page so we can see it
   $('body').append($button);
+}
+
+function guessAnswer(phrase) {
+
+$('<div class="guess"></div>').each(function () {
+    if ($(this).text() === phrase){
+      if ($(this).text() === correctAnimal){
+        $(this).effect('shake');
+      }
+      // If the button they clicked on has a label matching the correct answer...
+      if ($(this).text() === correctAnimal) {
+        // Remove all the buttons
+        $('.guess').remove();
+        // Start a new round
+        setTimeout(newRound,1000);
+      }
+      else {
+        // Otherwise they were wrong, so shake the button
+        $(this).effect('shake');
+        // And say the correct animal again to "help" them
+        speakAnimal(correctAnimal);
+      }
+    }
+});
+}
+
+function repeatAnimal() {
+  name = correctAnimal;
+  // We create a reverse version of the name by:
+  // 1. using .split('') to split the string into an array with each character
+  // as a separate element.
+  // e.g. "bat" -> ['b','a','t']
+  // 2. using .reverse() on the resulting array to create a reverse version
+  // e.g. ['b','a','t'] -> ['t','a','b']
+  // 3. using .join('') on the resulting array to create a string version of the array
+  // with each element forming the string (joined together with nothing in between)
+  // e.g. ['t','a','b'] -> "tab"
+  // (We do this all in one line using "chaining" because .split() returns an array for
+  // for .reverse() to work on, and .reverse() returns an array for .join() to work on.)
+  let reverseAnimal = name.split('').reverse().join('');
+
+  // Set some random numbers for the voice's pitch and rate parameters for a bit of fun
+  let options = {
+    pitch: Math.random(),
+    rate: Math.random()
+  };
+
+  // Use ResponsiveVoice to speak the string we generated, with UK English Male voice
+  // and the options we just specified.
+  responsiveVoice.speak(reverseAnimal,'UK English Female',options);
 }
