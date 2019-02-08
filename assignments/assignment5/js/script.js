@@ -162,6 +162,8 @@ let animals = [
 let correctAnimal;
 // We also track all the possibly answers (mostly so we can switch their order around)
 let answers = [];
+// # of correct answers in a row
+let score = 0;
 
 // How many possible answers there are per round
 const NUM_OPTIONS = 5;
@@ -226,6 +228,8 @@ function newRound() {
 
   // Say the name of the animal
   speakAnimal(correctAnimal);
+  $('#score').text('score: ' + score);
+
 }
 
 // giveUp()
@@ -241,6 +245,7 @@ function giveUp() {
 });
 // Remove all the buttons
 $('.guess').remove();
+score = 0;
 // Start a new round
 setTimeout(newRound,1000);
 }
@@ -290,6 +295,9 @@ function addButton(label) {
     if ($(this).text() === correctAnimal) {
       // Remove all the buttons
       $('.guess').remove();
+      score += 1;
+      console.log(score);
+      $('#score').text('score: ' + score);
       // Start a new round
       setTimeout(newRound,1000);
     }
@@ -298,6 +306,8 @@ function addButton(label) {
       $(this).effect('shake');
       // And say the correct animal again to "help" them
       speakAnimal(correctAnimal);
+      score = 0;
+      $('#score').text('score: ' + score);
     }
   });
 
@@ -316,6 +326,7 @@ $('<div class="guess"></div>').each(function () {
       if ($(this).text() === correctAnimal) {
         // Remove all the buttons
         $('.guess').remove();
+        score += 1;
         // Start a new round
         setTimeout(newRound,1000);
       }
@@ -324,6 +335,8 @@ $('<div class="guess"></div>').each(function () {
         $(this).effect('shake');
         // And say the correct animal again to "help" them
         speakAnimal(correctAnimal);
+
+        score = 0;
       }
     }
 });
