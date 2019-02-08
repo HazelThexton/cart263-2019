@@ -238,13 +238,17 @@ function newRound() {
 function giveUp() {
 
   // Shakes correct answer button
-  $('<div class="guess"></div>').each(function () {
+  $('.guess').each(function () {
     if ($(this).text() === correctAnimal){
       $(this).effect('shake');
     }
 });
-// Remove all the buttons
-$('.guess').remove();
+
+setTimeout(function() {
+  // Remove all the buttons
+  $('.guess').remove();
+}, 1000);
+
 score = 0;
 // Start a new round
 setTimeout(newRound,1000);
@@ -317,16 +321,14 @@ function addButton(label) {
 
 function guessAnswer(phrase) {
 
-$('<div class="guess"></div>').each(function () {
+$('.guess').each(function () {
     if ($(this).text() === phrase){
-      if ($(this).text() === correctAnimal){
-        $(this).effect('shake');
-      }
       // If the button they clicked on has a label matching the correct answer...
       if ($(this).text() === correctAnimal) {
         // Remove all the buttons
         $('.guess').remove();
         score += 1;
+        $('#score').text('score: ' + score);
         // Start a new round
         setTimeout(newRound,1000);
       }
@@ -335,8 +337,8 @@ $('<div class="guess"></div>').each(function () {
         $(this).effect('shake');
         // And say the correct animal again to "help" them
         speakAnimal(correctAnimal);
-
         score = 0;
+        $('#score').text('score: ' + score);
       }
     }
 });
