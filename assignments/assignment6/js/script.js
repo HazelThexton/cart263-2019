@@ -27,13 +27,25 @@ $(document).ready(function() {
   // the location of the file, and a function to call when the data
   // is available...
   $.getJSON('data/data.json', gotData);
+  $( "html" ).on( "click", function() {
+    reset();
+  });
+
 });
 
+// reset
+//
+// This function gets called on click, clears the text, and reloads a new string
+function reset() {
+  $('body').text("");
+  $.getJSON('data/data.json', gotData);
+}
 // gotData (data)
 //
 // This function gets called by getJSON when the data has been loaded.
 // The data itself will be in the 'data' argument as a JavaScript object.
 function gotData(data) {
+
   // Now we select random elements from the three arrays inside
   // our JSON to get a random condiment, cat, and room. Then we add those
   // words onto our page by setting the text of the appropriate span.
@@ -56,14 +68,14 @@ function gotData(data) {
   // Assume it starts with a consonant
   let catArticle = "a";
 
-for (let i = 0; i < vowels.length; i++) {
-  // Check if the first latter of the condiment is a vowel
-  if (cat.charAt(0) === vowels[i]) {
-    // If so, change article to "an"
-    catArticle = 'an';
+  for (let i = 0; i < vowels.length; i++) {
+    // Check if the first latter of the condiment is a vowel
+    if (cat.charAt(0) === vowels[i]) {
+      // If so, change article to "an"
+      catArticle = 'an';
+    }
+    console.log(vowels[i]);
   }
-  console.log(vowels[i]);
-}
 
   // Same again for room
   let room = getRandomElement(data.rooms);
@@ -79,7 +91,7 @@ for (let i = 0; i < vowels.length; i++) {
     }
   }
 
-console.log(cat.charAt(0) + " and " + room.charAt(0));
+  console.log(cat.charAt(0) + " and " + room.charAt(0));
   // Now we can construct our description with a template string
   // We have the basic structure of a sentence and we substitute in the
   // values we've just calculated
