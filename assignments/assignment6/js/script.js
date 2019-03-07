@@ -91,11 +91,15 @@ function gotData(data) {
     }
   }
 
+  let adjective = getRandomElement(data.adjs);
+
+let interjections = getRandomElement(data.interjections);
+interjectionsCapitalized = interjections.charAt(0).toUpperCase() + interjections.slice(1)
   console.log(cat.charAt(0) + " and " + room.charAt(0));
   // Now we can construct our description with a template string
   // We have the basic structure of a sentence and we substitute in the
   // values we've just calculated
-  let description = `${condiment} ${verb} like ${catArticle} ${cat} in ${roomArticle} ${room}.`;
+  let description = `${condiment} ${verb} like ${catArticle} ${cat} in ${roomArticle} ${room}, to be enjoyed only by the most ${adjective} gourmets. When one tastes it, one thinks "${interjectionsCapitalized}, that's good!"`;
 
   // Finally, we add it to the page and hey presto!
   $('body').append(description)
