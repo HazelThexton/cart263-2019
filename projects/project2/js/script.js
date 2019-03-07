@@ -25,7 +25,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth,windowHeight);
   background(255);
-  onscreenText = new OnscreenText(width/10,height/10,width/10*8,height/10*8,20,"Comic Sans",0);
+  onscreenText = new OnscreenText(width/10,height/10,width/10*8,height/10*8,20,"Comic Sans MS",0);
 }
 
 
