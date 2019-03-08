@@ -7,7 +7,9 @@ Hazel Thexton
 
 ******************/
 
-let onscreenText;
+let storyText;
+let startScreenText;
+let startScreenActive = true;
 
 // preload()
 //
@@ -25,7 +27,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth,windowHeight);
   background(255);
-  onscreenText = new OnscreenText(width/10,height/10,width/10*8,height/10*8,20,"Comic Sans MS",0);
+  storyText = new OnscreenText(width/10,height/10,20,0);
+  startScreenText = new OnscreenText(width/10,height/10,20,0);
 }
 
 
@@ -34,15 +37,28 @@ function setup() {
 // Description of draw()
 
 function draw() {
-
-  if (keyIsDown(ENTER)) {
-    background(255);
-    story();
+  if (startScreenActive) {
+  startScreen();
+}
+else {
+    if (mouseIsPressed){
+      background(255);
+      story();
+    }
   }
 }
 
 function story() {
-          let grammar = tracery.createGrammar(grammars);
-          let tale = grammar.flatten('#origin#');
-          onscreenText.display(tale);
-        }
+  let grammar = tracery.createGrammar(long);
+  let tale = grammar.flatten('#origin#');
+  storyText.display(tale);
+}
+
+function startScreen() {
+  background(255);
+  startScreenText.display("tap the screen");
+  if (mouseIsPressed){
+    background(255);
+    startScreenActive = false;
+  }
+}
