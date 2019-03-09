@@ -51,7 +51,9 @@ else {
 function story() {
   let grammar = tracery.createGrammar(long);
   let tale = grammar.flatten('#origin#');
+  tale.substring();
   storyText.display(tale);
+  responsiveVoice.speak(tale,'UK English Female');
 }
 
 function startScreen() {
