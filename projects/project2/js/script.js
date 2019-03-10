@@ -8,8 +8,9 @@ Hazel Thexton
 ******************/
 
 let storyText;
-let startScreenText;
-let startScreenActive = true;
+let helpScreenText;
+let helpScreenActive = true;
+let textModeActive = true;
 
 // preload()
 //
@@ -26,41 +27,65 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
+
   background(255);
   storyText = new OnscreenText(width/10,height/10,20,0);
-  startScreenText = new OnscreenText(width/10,height/10,20,0);
-}
+  helpScreenText = new OnscreenText(width/10,height/10,20,0);
 
+  if (annyang) {
+  // Let's define our first command. First the text we expect, and then the function it should call
+  var commands = {
+    'tell me a story': story,
+    'what do i do': helpScreen,
+    'show me the story': textMode,
+    'hide the story': textModeHide
+  };
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+
+  // Start listening.
+  annyang.start();
+}
+}
 
 // draw()
 //
 // Description of draw()
 
 function draw() {
-  if (startScreenActive) {
-  startScreen();
+  if (helpScreenActive) {
+  helpScreen();
 }
-else {
-    if (mouseIsPressed){
-      background(255);
-      story();
-    }
-  }
 }
 
 function story() {
+  helpScreenActive = false;
+  background(255);
   let grammar = tracery.createGrammar(long);
   let tale = grammar.flatten('#origin#');
   tale.substring();
-  storyText.display(tale);
   responsiveVoice.speak(tale,'UK English Female');
+  storyText.display(tale);
+  if (textModeActive) {
+    storyText.display(tale);
+  }
 }
 
-function startScreen() {
+function helpScreen() {
   background(255);
-  startScreenText.display("tap the screen");
-  if (mouseIsPressed){
-    background(255);
-    startScreenActive = false;
+  //responsiveVoice.cancel();
+  helpScreenText.display("say 'what do i do?' for help.\nsay 'tell me a story' for a story.\nsay 'show me the story' to turn on text, or 'hide the story' to turn it off.");
+  if (!textModeActive) {
+    responsiveVoice.speak("say 'what do i do?' for help.\nsay 'tell me a story' for a story.\nsay 'show me the story' to turn on text, or 'hide the story' to turn it off.",'UK English Female');
   }
+}
+
+function textMode() {
+  textModeActive = true;
+}
+
+function textModeHide() {
+  background(255);
+    textModeActive = false;
 }

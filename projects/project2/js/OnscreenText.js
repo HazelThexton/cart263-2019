@@ -34,6 +34,7 @@ class OnscreenText {
     textAlign(CENTER, CENTER);
     textFont(this.font);
     textSize(this.size);
+    textLeading(20);
     fill(this.color);
   }
 }
