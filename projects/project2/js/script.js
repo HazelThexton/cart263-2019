@@ -69,7 +69,7 @@ function story(length) {
   let grammar = tracery.createGrammar(length);
   let trace = grammar.flatten('#origin#');
   // Has our responsiveVoice speak the trace out loud
-  responsiveVoice.speak(tale,'UK English Female');
+  responsiveVoice.speak(trace,'UK English Female');
   // If text mode is enabled, the story is displayed onscreen
   storyText.display(trace);
   if (textModeActive) {
