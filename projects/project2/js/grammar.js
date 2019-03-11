@@ -93,7 +93,7 @@ short = {
       middle1: ["One day, #heroThey# decided to go to the #heroLocation# to #verb# with #heroTheir# friends and pick flowers shaped like #noun.s#. The #heroLocation# was very #adjective# and #adjective#.",
       "One day, #hero# had to go buy #noun.s# at the store for #heroTheir# mother. #hero# didn't mind, because the store was right by the best #location# in the #adjective# town of #noun.capitalize#ington."],
 
-      middle2: ["When #heroThey# got there, #hero# quickly found what #heroThey# had come come for. 'If we hurry up, maybe your mom will make her special #adjective# #food# with #food# sauce for dinner!' said #pet#.",
+      middle2: ["When #heroThey# got there, #hero# quickly found what #heroThey# had come for. 'If we hurry up, maybe your mom will make her special #adjective# #food# with #food# sauce for dinner!' said #pet#.",
       "When #hero# was halfway there, #heroThey# got lost! 'We should try to retrace our steps.' said #pet#. But #hero# had a different idea. 'This place looks #adjective# to #verb#! Let's do that instead.'"],
 
       end: ["#hero# and #heroTheir# friend #verb.ed# until the sun went down. 'It's getting late,' said #pet#. 'Let's go home, shall we?' So they made their way back, got into bed, and had a good night's sleep. The end!"],
