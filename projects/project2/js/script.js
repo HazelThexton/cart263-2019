@@ -34,6 +34,7 @@ function setup() {
   createCanvas(windowWidth,windowHeight, WEBGL);
   // Create an Audio input
   mic = new p5.AudioIn();
+  mic.start();
   // Creates our text objects
   startScreenText = new OnscreenText(width/10,height/10,20,0);
 
@@ -80,7 +81,7 @@ function draw() {
     help();
   }
   // Start the Audio Input.
-  mic.start();
+
   orb();
 
 }
@@ -121,12 +122,11 @@ function help() {
 
 function orb() {
   texture(video);
-  let rotateSpeed = mic.getLevel();
-  console.log(mic.getLevel());
+  let orbSize = mic.getLevel()*500;
  push();
- rotateZ(frameCount * rotateSpeed);
- rotateX(frameCount * rotateSpeed);
+ rotateZ(frameCount * 0.02);
+ rotateX(frameCount * 0.05);
  rotateY(frameCount * 0.01);
- sphere(200+rotateSpeed*1000);
+ sphere(100+orbSize);
  pop();
 }
