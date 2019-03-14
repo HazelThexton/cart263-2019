@@ -5,39 +5,54 @@
 Youtube Storytime
 Hazel Thexton
 
+video from
+
+https://www.youtube.com/watch?v=YfUNPdxP6mo&t=35s
+
 ******************/
 
-let storyText;
-let helpScreenText;
-let helpScreenActive = true;
-let textModeActive = true;
+let startScreenText;
+let startScreen = true;
+let helpActive = false;
+let video;
+let mic;
 
 // preload()
 //
 // Description of preload
 function preload() {
-
+video = createVideo(["assets/images/video.mp4"]);
+video.elt.muted = true;
+video.loop();
+video.hide();
 }
 
 // setup()
 //
 // Sets up the canvas, creates text objects and initialies annyang
 function setup() {
-  createCanvas(windowWidth,windowHeight);
-  background(255);
-
+  createCanvas(windowWidth,windowHeight, WEBGL);
+  // Create an Audio input
+  mic = new p5.AudioIn();
   // Creates our text objects
-  storyText = new OnscreenText(width/10,height/10,20,0);
-  helpScreenText = new OnscreenText(width/10,height/10,20,0);
+  startScreenText = new OnscreenText(width/10,height/10,20,0);
 
   if (annyang) {
     // Defines voice commands
     var commands = {
-      'tell me a long story': story(long),
-      'tell me a short story': story(short),
-      'what do i do': helpScreen,
-      'show me the story': textMode(true),
-      'hide the story': textMode(false)
+      'tell me a long story': function() {
+        story(long)
+      },
+      'tell me a short story': function() {
+        story(short)
+      },
+      'stop (talking)': function() {
+        responsiveVoice.pause();
+      },
+      'keep talking': function() {
+        responsiveVoice.resume();
+      },
+      'what do i do': help,
     };
 
     // Add our commands to annyang
@@ -52,54 +67,66 @@ function setup() {
 //
 // enables the help screen by default
 function draw() {
-  if (helpScreenActive) {
-    helpScreen();
+  background(0);
+  if (startScreen) {
+    //startScreenText.display("tap to start");
+    if (mouseIsPressed){
+      helpActive = true;
+      startScreen = false;
+
+    }
   }
+  else if (helpActive) {
+    help();
+  }
+  // Start the Audio Input.
+  mic.start();
+  orb();
+
 }
 
 // story()
 //
 // Creates a story based on our grammar and on the length chosen by the user,
 // then displays and/or reads it
-function story(length) {
+function story(length, yourName) {
+  console.log('working');
   // Hides the help screen
-  helpScreenActive = false;
-  background(255);
+  helpActive = false;
+
   // Generates a trace, aka a possible output of a tracery grammar
   let grammar = tracery.createGrammar(length);
+
+  //if (yourName != noname){
+  //  grammar.pushRules(name, [yourName]);
+//  }
+
   let trace = grammar.flatten('#origin#');
   // Has our responsiveVoice speak the trace out loud
   responsiveVoice.speak(trace,'UK English Female');
-  // If text mode is enabled, the story is displayed onscreen
-  storyText.display(trace);
-  if (textModeActive) {
-    storyText.display(trace);
-  }
+
 }
 
-// helpScreen()
+// help()
 //
 // Displays a list of the voice commands a user can use to interact
-function helpScreen() {
+function help() {
   // Clears the screen
   background(255);
-  // Displays the help text by default (after all the user may not know this is speech-based)
-  helpScreenText.display("say 'what do i do?' for help.\nsay 'tell me a story' for a story.\nsay 'show me the story' to turn on text, or 'hide the story' to turn it off.");
   // If text is disabled, responsiveVoice reads out the instructions
-  if (!textModeActive) {
-    responsiveVoice.speak("say 'what do i do?' for help.\nsay 'tell me a story' for a story.\nsay 'show me the story' to turn on text, or 'hide the story' to turn it off.",'UK English Female');
-  }
+  responsiveVoice.speak("say 'what do i do?' for help. say 'tell me a short story' or 'tell me a long story' for a story.",'UK English Female');
+
+  helpActive = false;
 }
 
-// textMode()
-//
-// Enables or disables the display of text (as opposed to just audio) based on
-// the command spoken by the user
-function textMode(toggle) {
-  textModeActive = toggle;
-
-  // Clears the screen if text is disabled
-  if (toggle === false){
-    background(255);
-  }
+function orb() {
+  texture(video);
+  let rotateSpeed = mic.getLevel();
+  console.log(mic.getLevel());
+ push();
+ rotateZ(frameCount * rotateSpeed);
+ rotateX(frameCount * rotateSpeed);
+ rotateY(frameCount * 0.01);
+ sphere(200+rotateSpeed*1000);
+ pop();
 }

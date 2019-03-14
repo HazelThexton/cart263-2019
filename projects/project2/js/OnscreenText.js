@@ -10,10 +10,8 @@ class OnscreenText {
   //
   // Sets the properties with the provided arguments
   constructor(x,y,size,color) {
-    this.x1 = x;
-    this.y1 = y;
-    this.x2 = width/10*8;
-    this.y2 = height/10*8;
+    this.x = x;
+    this.y = y;
     this.size = size;
     this.font = "Comic Sans MS";
     this.color = color;
@@ -24,14 +22,14 @@ class OnscreenText {
   // Display the text onscreen
   display (string) {
     this.format();
-    text(string,this.x1,this.y1,this.x2,this.y2);
+    text(string,this.x,this.y);
   }
 
   // textFormat()
   //
   // Text size, color, etc.
   format () {
-    textAlign(CENTER, CENTER);
+    //textAlign(CENTER, CENTER);
     textFont(this.font);
     textSize(this.size);
     textLeading(20);
