@@ -21,6 +21,7 @@ let video;
 let mic;
 let font;
 let textArea;
+let yourName;
 
 // preload()
 //
@@ -46,14 +47,11 @@ function setup() {
 
   if (annyang) {
     // Defines voice commands
-    var commands = {
+    let commands = {
       'tell me a story': story,
-      'tell me a long story': function() {
-        story(long)
-      },
-      'tell me a short story': function() {
-        story(short)
-      },
+      'tell me a :long story': story,
+      'tell me a :short story': story,
+      'tell me a story about *name': story,
       'stop (talking)': function() {
         responsiveVoice.pause();
       },
@@ -69,6 +67,7 @@ function setup() {
     // Start listening.
     annyang.start();
   }
+  console.log(annyang);
 }
 
 // draw()
@@ -104,24 +103,29 @@ function startText () {
 //
 // Creates a story based on our grammar and on the length chosen by the user,
 // then displays and/or reads it
-function story(length) {
-
+function story(lengthOrName) {
+console.log('working');
 // If the user just asked for a story without specifying length, it's selected randomly
-    if (length === undefined){
+    if (lengthOrName != 'short' || lengthOrName != 'long'){
       if (random <= 0.5) {
-        length = short;
+        let length = short;
       }
       else {
-        length = long;
+        let length = long;
+      }
+      // If the argument passed from annyang isn't a length OR undefined, it's a name,
+      // which we push to the grammar to get a story featuring that name
+      if (lengthOrName != undefined){
+        grammar.pushRules(name, [lengthOrName]);
       }
     }
+
+    console.log(lengthOrName);
 
   // Generates a trace, aka a possible output of a tracery grammar
   let grammar = tracery.createGrammar(length);
 
-  //if (yourName != noname){
-  //  grammar.pushRules(name, [yourName]);
-//  }
+
 
   let trace = grammar.flatten('#origin#');
   // Has our responsiveVoice speak the trace out loud
