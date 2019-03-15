@@ -1,3 +1,5 @@
+// All words in these grammars are derived from strange kids'
+// youtube video titles downloaded en masse and then sorted by word type
 short = {
     name: ["Aladdin", "Barbie", "Batman", "Captain America", "Donald Duck",
     "Hazel", "Jasmine", "Lion King", "Mickey Mouse", "Peppa Pig", "Robin",
