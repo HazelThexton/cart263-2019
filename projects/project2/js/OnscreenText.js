@@ -9,12 +9,13 @@ class OnscreenText {
   // Text constructor
   //
   // Sets the properties with the provided arguments
-  constructor(x,y,size,color) {
+  constructor(x,y,size,color,font) {
     this.x = x;
     this.y = y;
     this.size = size;
     this.font = "Comic Sans MS";
     this.color = color;
+    this.font = font;
   }
 
   // display()

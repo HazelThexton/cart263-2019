@@ -11,20 +11,24 @@ https://www.youtube.com/watch?v=YfUNPdxP6mo&t=35s
 
 ******************/
 
-let startScreenText;
+let startTextImage;
 let startScreen = true;
 let helpActive = false;
 let video;
 let mic;
+let font;
+let textArea;
 
 // preload()
 //
 // Description of preload
 function preload() {
+  startTextImage = loadImage("assets/images/startTextImage.png");
 video = createVideo(["assets/images/video.mp4"]);
 video.elt.muted = true;
 video.loop();
 video.hide();
+
 }
 
 // setup()
@@ -34,9 +38,8 @@ function setup() {
   createCanvas(windowWidth,windowHeight, WEBGL);
   // Create an Audio input
   mic = new p5.AudioIn();
+  // Start the Audio Input.
   mic.start();
-  // Creates our text objects
-  startScreenText = new OnscreenText(width/10,height/10,20,0);
 
   if (annyang) {
     // Defines voice commands
@@ -70,7 +73,7 @@ function setup() {
 function draw() {
   background(0);
   if (startScreen) {
-    //startScreenText.display("tap to start");
+startText ();
     if (mouseIsPressed){
       helpActive = true;
       startScreen = false;
@@ -80,10 +83,17 @@ function draw() {
   else if (helpActive) {
     help();
   }
-  // Start the Audio Input.
+  else {
+    videoTorus();
+  }
+  }
 
-  orb();
-
+function startText () {
+  normalMaterial();
+  texture(startTextImage);
+  push();
+  plane(500,105);
+  pop();
 }
 
 // story()
@@ -115,18 +125,28 @@ function help() {
   // Clears the screen
   background(255);
   // If text is disabled, responsiveVoice reads out the instructions
-  responsiveVoice.speak("say 'what do i do?' for help. say 'tell me a short story' or 'tell me a long story' for a story.",'UK English Female');
+  responsiveVoice.speak("say 'what do i do?' for help. say 'tell me a short story' or 'tell me a long story' for a story. Say 'Stop talking' or 'keep talking' to pause or resume the story.",'UK English Female');
 
   helpActive = false;
 }
 
-function orb() {
+function videoTorus() {
+  // Basic ambient lighting
+  ambientLight(255,255,255);
+  // Additional directional light to add some dimension
+  directionalLight(255, 255, 255, 1, -1, 0);
+  // Specular material reflects light
+  specularMaterial(0,0,0);
+  // Applies a weird kids' video as the texture
   texture(video);
-  let orbSize = mic.getLevel()*500;
+  // The size of the video torus increases proportionally to noise detected by the mic
+  let torusSize = mic.getLevel()*500;
+  // Mild constant rotation in all directions
  push();
  rotateZ(frameCount * 0.02);
  rotateX(frameCount * 0.05);
  rotateY(frameCount * 0.01);
- sphere(100+orbSize);
+ // The 'thickness' of the torus always stays the same for a stretching/squashing effect
+ torus(100+torusSize,50);
  pop();
 }
