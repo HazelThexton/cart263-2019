@@ -5,6 +5,9 @@
 Youtube Storytime
 Hazel Thexton
 
+It is highly recommended to use HEADPHONES (to prevent responsiveVoice from
+triggering annyang) and FIREFOX (to avoid a microphone input bug in google chrome)
+
 video from
 
 https://www.youtube.com/watch?v=YfUNPdxP6mo&t=35s
@@ -44,6 +47,7 @@ function setup() {
   if (annyang) {
     // Defines voice commands
     var commands = {
+      'tell me a story': story,
       'tell me a long story': function() {
         story(long)
       },
@@ -100,10 +104,17 @@ function startText () {
 //
 // Creates a story based on our grammar and on the length chosen by the user,
 // then displays and/or reads it
-function story(length, yourName) {
-  console.log('working');
-  // Hides the help screen
-  helpActive = false;
+function story(length) {
+
+// If the user just asked for a story without specifying length, it's selected randomly
+    if (length === undefined){
+      if (random <= 0.5) {
+        length = short;
+      }
+      else {
+        length = long;
+      }
+    }
 
   // Generates a trace, aka a possible output of a tracery grammar
   let grammar = tracery.createGrammar(length);
@@ -125,7 +136,7 @@ function help() {
   // Clears the screen
   background(255);
   // If text is disabled, responsiveVoice reads out the instructions
-  responsiveVoice.speak("say 'what do i do?' for help. say 'tell me a short story' or 'tell me a long story' for a story. Say 'Stop talking' or 'keep talking' to pause or resume the story.",'UK English Female');
+  responsiveVoice.speak("say 'what do i do' for help. say 'tell me a story' for a story. You can also ask for a long or short story. Say 'Stop talking' or 'keep talking' to pause or resume the story.",'UK English Female');
 
   helpActive = false;
 }
