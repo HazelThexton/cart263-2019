@@ -86,23 +86,21 @@ function setup() {
 //
 // Using this to start the note and drum sequences to get around
 // user interaction (and to give the files time to load)
-function mousePressed() {
-  if (started === false) {
-    // Start an interval for the notes
-    setInterval(playNote,NOTE_TEMPO);
-    // Start an interval for the drums
-    setInterval(playDrum,DRUM_TEMPO);
-  }
-  started = true;
+function interval() {
+  // Start an interval for the notes
+  // Start an interval for the drums
+  setInterval(playDrum,DRUM_TEMPO);
+
 }
 
 // playNote
 //
 // Chooses a random frequency and assigns it to the synth
 function playNote() {
+
   if (random() <= 0.1) {
     synth.stop();
-    console.log('pause');
+    console.log('rest');
   }
   else {
     // Pick a random frequency from the array
@@ -111,7 +109,9 @@ function playNote() {
     synth.frequency = frequency;
     // If it's note already play, play the synth
     synth.play();
+
   }
+  notes();
 }
 
 // playDrum()
@@ -143,4 +143,17 @@ function playDrum() {
 // Nothing right now.
 
 function draw() {
+  if (started === false) {
+    if (mouseIsPressed) {
+      interval();
+      notes();
+      started = true;
+    }
+  }
+}
+
+function notes() {
+  let realTempo = NOTE_TEMPO*int(random(1,4));
+  setTimeout(playNote,realTempo);
+  console.log(realTempo);
 }
