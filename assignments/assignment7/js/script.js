@@ -11,15 +11,29 @@ synthesis and soundfile playing abilities.
 ******************/
 
 // Time for one note
-const NOTE_TEMPO = 500;
+const NOTE_TEMPO = 250;
 // Time for one beat
 const DRUM_TEMPO = 250;
 // Attack time for a note (in seconds)
 const ATTACK = 0.1;
 // Release time for a note (in seconds)
 const RELEASE = 0.1;
+let realTempo;
 
 let started = false;
+
+var reverb = new Pizzicato.Effects.Reverb({
+    time: 1,
+    decay: 0.6,
+    reverse: true,
+    mix: 0.5
+});
+
+var tremolo = new Pizzicato.Effects.Tremolo({
+    speed: 5,
+    depth: 1,
+    mix: 0.5
+});
 
 // We need an array of the possible notes to play as frequencies (in Hz)
 // A Major =  A, B, C♯, D, E, F♯, and G♯
@@ -111,7 +125,7 @@ function playNote() {
     synth.play();
 
   }
-  notes();
+  setTimeout(notes,realTempo);
 }
 
 // playDrum()
@@ -148,12 +162,14 @@ function draw() {
       interval();
       notes();
       started = true;
+      synth.addEffect(reverb);
+      hihat.addEffect(tremolo);
     }
   }
 }
 
 function notes() {
-  let realTempo = NOTE_TEMPO*int(random(1,4));
+  realTempo = NOTE_TEMPO*int(random(1,4));
   setTimeout(playNote,realTempo);
   console.log(realTempo);
 }
