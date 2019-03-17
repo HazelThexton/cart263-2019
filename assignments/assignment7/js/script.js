@@ -100,12 +100,18 @@ function mousePressed() {
 //
 // Chooses a random frequency and assigns it to the synth
 function playNote() {
-  // Pick a random frequency from the array
-  let frequency = frequencies[Math.floor(Math.random() * frequencies.length)];
-  // Set the synth's frequency
-  synth.frequency = frequency;
-  // If it's note already play, play the synth
-  synth.play();
+  if (random() <= 0.1) {
+    synth.stop();
+    console.log('pause');
+  }
+  else {
+    // Pick a random frequency from the array
+    let frequency = frequencies[Math.floor(Math.random() * frequencies.length)];
+    // Set the synth's frequency
+    synth.frequency = frequency;
+    // If it's note already play, play the synth
+    synth.play();
+  }
 }
 
 // playDrum()
