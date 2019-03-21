@@ -10,21 +10,32 @@ author, and this description to match your project!
 
 ******************/
 
-// preload()
-//
-// Description of preload
+let imgElement;
+let inputElement;
 
-function preload() {
-
-}
-
+// Calls setup when the document is ready
+$(document).ready(setup);
 
 // setup()
 //
 // Description of setup
 
 function setup() {
+onOpenCvReady();
+   imgElement = document.getElementById("imageSrc");
+   inputElement = document.getElementById("fileInput");
+  inputElement.addEventListener("change", (e) => {
+    imgElement.src = URL.createObjectURL(e.target.files[0]);
+  }, false);
 
+  imgElement.onload = function() {
+    let mat = cv.imread(imgElement);
+    cv.imshow('canvasOutput', mat);
+    mat.delete();
+  };
+  function onOpenCvReady() {
+    document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+  }
 }
 
 
