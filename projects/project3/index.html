@@ -12,7 +12,7 @@
   <script src="js/libraries/p5.min.js"></script>
   <script src="js/libraries/p5.sound.min.js"></script>
   <script src="js/libraries/p5.dom.min.js"></script>
-  <script async src="opencv.js" onload="onOpenCvReady();"></script>
+  <script async src="js/libraries/opencv.js" onload="onOpenCvReady"></script>
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -26,12 +26,15 @@
   <h2>Hello OpenCV.js</h2>
   <p id="status">OpenCV.js is loading...</p>
   <div>
-    <div class="inputoutput">
-      <img id="imageSrc" alt="No Image" />
-      <div class="caption"> imageSrc <input type="file" id="fileInput" name="file" /></div>
-    </div>
-    <canvas id="outputCanvas"></canvas>
+  <div class="inputoutput">
+    <img id="imageSrc" alt="No Image" />
+    <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
   </div>
+  <div class="inputoutput">
+    <canvas id="canvasOutput" ></canvas>
+    <div class="caption">canvasOutput</div>
+  </div>
+</div>
   <!-- HTML would go here if needed. -->
 </body>
 </html>
