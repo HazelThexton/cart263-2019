@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tarot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+
+  <!-- CSS stylesheet(s) -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <!-- Library script(s) -->
+  <script src="js/libraries/p5.min.js"></script>
+  <script src="js/libraries/p5.dom.min.js"></script>
+  <script async src="js/libraries/opencv.js" onload="onOpenCvReady"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+  <!-- My script(s) -->
+  <script src="js/script.js"></script>
+</head>
+
+<body>
+  <h2>This is the basic implementation of OpenCV.js. You can upload an image and it will generate an output.<br> So far it does nothing to the input, so the output is identical- i haven't trained it yet.</h2>
+  <p id="status">OpenCV.js is loading...</p>
+  <div>
+  <div class="inputoutput">
+    <img id="imageSrc" alt="No Image" />
+    <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+  </div>
+  <div class="inputoutput">
+    <canvas id="canvasOutput" ></canvas>
+    <div class="caption">canvasOutput</div>
+  </div>
+</div>
+  <!-- HTML would go here if needed. -->
+</body>
+</html>
