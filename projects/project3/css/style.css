@@ -7,6 +7,7 @@ so the canvas is flush with the top left corner.
 **********************************************/
 
 body {
+  background-color: 0;
   padding: 0;
   margin: 0;
 }
