@@ -12,6 +12,7 @@
   <script src="js/libraries/p5.min.js"></script>
   <script src="js/libraries/p5.sound.min.js"></script>
   <script src="js/libraries/p5.dom.min.js"></script>
+  <script src="js/libraries/utils.js"></script>
   <script async src="js/libraries/opencv.js" onload="onOpenCvReady"></script>
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -23,17 +24,16 @@
 </head>
 
 <body>
-  <h2>This is the basic implementation of OpenCV.js. You can upload an image and it will generate an output.<br> So far it does nothing to the input, so the output is identical- i haven't trained it yet.</h2>
+  <h2>This is the basic implementation of OpenCV.js.</h2>
   <p id="status">OpenCV.js is loading...</p>
   <div>
-  <div class="inputoutput">
+
     <img id="imageSrc" alt="No Image" />
     <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
-  </div>
-  <div class="inputoutput">
-    <canvas id="canvasOutput" ></canvas>
+
+    <canvas id="imageCanvas" ></canvas>
     <div class="caption">canvasOutput</div>
-  </div>
+<button type="button" id="circlesButton" class="btn btn-primary">Face Detection</button>
 </div>
   <!-- HTML would go here if needed. -->
 </body>
