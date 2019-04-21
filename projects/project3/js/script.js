@@ -91,7 +91,9 @@ function detectCircles() {
   let srcMat = cv.imread('imageCanvas');
   let displayMat = srcMat.clone();
   let circlesMat = new cv.Mat();
+  let dsize = new cv.Size(0, 0);
   cv.cvtColor(srcMat, srcMat, cv.COLOR_RGBA2GRAY);
+cv.resize(srcMat, srcMat, dsize, 0.2, 0.2, cv.INTER_AREA);
   cv.HoughCircles(srcMat, circlesMat, cv.HOUGH_GRADIENT, 1, 70, 90, 50, 0, 0);
   for (let i = 0; i < circlesMat.cols; ++i) {
     let x = circlesMat.data32F[i * 3];
@@ -104,9 +106,13 @@ function detectCircles() {
     console.log(xyFrequency[i]);
   }
   cv.imshow('imageCanvas', displayMat);
-  $(this).text('Done!');
-  imageLoaded = true;
-
+  if (xyFrequency === 0) {
+    $(this).text('Please try another image.');
+  }
+  else {
+    $(this).text('Done!');
+    imageLoaded = true;
+  }
 }
 
 
