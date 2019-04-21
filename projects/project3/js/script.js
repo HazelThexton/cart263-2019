@@ -2,62 +2,56 @@
 
 /*****************
 
-Title of Project
-Author Name
+Synaesthetics
+Hazel Thexton
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+Turns images into sound.
 
 ******************/
 
+// Declare variables for...
+// HTML elements
 let imgElement;
 let inputElement;
 let mat;
 let $circlesButton;
+
+// Whether the image has been read
+let imageLoaded = false;
+
+// Note frequency
 let xyFrequency = [];
 let xyIndex = 0;
+
+// Note tempo
 let radiusTempo = [];
 let radiusIndex = 0;
-let imageLoaded = false;
+let tempo;
+
 
 // Attack time for a note (in seconds)
 const ATTACK = 0.1;
 // Release time for a note (in seconds)
 const RELEASE = 0.1;
-
-let tempo;
-
+// Whether the sound has started
 let started = false;
-
-var reverb = new Pizzicato.Effects.Reverb({
-  time: 1,
-  decay: 0.6,
-  reverse: true,
-  mix: 0.5
-});
-
-var tremolo = new Pizzicato.Effects.Tremolo({
-  speed: 5,
-  depth: 1,
-  mix: 0.5
-});
 
 // The synth
 let synth;
-
 
 // Calls setup when the document is ready
 $(document).ready(setup);
 
 // setup()
 //
-// Description of setup
+// Assigns html elements to variables, creates the synth object and calls the
+// "onOpenCVReady" function.
 function setup() {
   imgElement = document.getElementById('imageSrc');
   inputElement = document.getElementById('fileInput');
   $circlesButton = $('.circlesButton');
   onOpenCvReady();
-  // Create the synth
+  // Creates the synth
   synth = new Pizzicato.Sound({
     source: 'wave',
     options: {
@@ -69,18 +63,24 @@ function setup() {
   });
 }
 
+// onOpenCvReady()
+//
+// Performs actions meant to prepare the page for use
 function onOpenCvReady() {
   // Once OpenCV is ready we display a prompt
   document.getElementById('status').innerHTML = 'Load an image to make it sing!';
-  // changes the location of the image to the url of the input
+
+  // Once user has input an image, hanges the location of the image to the url of the input
   inputElement.onchange = function() {
     imgElement.src = URL.createObjectURL(event.target.files[0]);
   };
+  // Once the image has loaded, displays the image on the canvas
   imgElement.onload = function() {
     let image = cv.imread(imgElement);
     cv.imshow('imageCanvas', image);
     image.delete();
   };
+  // When the user clicks the element, calls the function for detecting circles
   $circlesButton.on('click',detectCircles);
 }
 
@@ -132,7 +132,7 @@ function draw() {
 }
 
 function notes() {
-  // Pick a random frequency from the array
+  // Assigns the correct tempo, based on circle radius.
   tempo = radiusTempo[radiusIndex];
   setTimeout(playNote,tempo);
 }
