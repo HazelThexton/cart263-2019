@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tarot</title>
+  <title>Synesthesia</title>
   <meta charset="utf-8">
   <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
 
@@ -24,17 +24,15 @@
 </head>
 
 <body>
-  <h2>This is the basic implementation of OpenCV.js.</h2>
-  <p id="status">OpenCV.js is loading...</p>
+  <h2>Synesthesia</h2>
+  <p id="status">Loading...</p>
   <div>
 
-    <img id="imageSrc" alt="No Image" />
-    <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+    <img id="imageSrc" class="imageDisplay" />
 
-    <canvas id="imageCanvas" ></canvas>
-    <div class="caption">canvasOutput</div>
-<button type="button" id="circlesButton" class="btn btn-primary">Circle Detection</button>
-</div>
-  <!-- HTML would go here if needed. -->
+    <div class="caption"><input type="file" id="fileInput"/></div>
+    <canvas id="imageCanvas" class="imageDisplay"></canvas>
+    <h2 class="circlesButton">Circle Detection</h2>
+  </div>
 </body>
 </html>

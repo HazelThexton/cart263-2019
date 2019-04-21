@@ -8,6 +8,18 @@ so the canvas is flush with the top left corner.
 
 body {
   background-color: 0;
-  padding: 0;
-  margin: 0;
+  text-align: center;
+  padding: 5%;
+  margin: auto;
+  align-items: center;
+}
+
+.imageDisplay {
+  max-width: 400px;
+  max-height: 400px;
+  margin: auto;
+}
+
+#imageSrc {
+  display: none;
 }
