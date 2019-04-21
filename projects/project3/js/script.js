@@ -93,20 +93,20 @@ function detectCircles() {
   let circlesMat = new cv.Mat();
   let dsize = new cv.Size(0, 0);
   cv.cvtColor(srcMat, srcMat, cv.COLOR_RGBA2GRAY);
-cv.resize(srcMat, srcMat, dsize, 0.5, 0.5, cv.INTER_AREA);
-  cv.HoughCircles(srcMat, circlesMat, cv.HOUGH_GRADIENT, 1, 70, 90, 50, 0, 0);
+cv.resize(srcMat, srcMat, dsize, 0.2, 0.2, cv.INTER_AREA);
+  cv.HoughCircles(srcMat, circlesMat, cv.HOUGH_GRADIENT, 1, 70, 70, 10, 0, 0);
   for (let i = 0; i < circlesMat.cols; ++i) {
-    let x = circlesMat.data32F[i * 3];
-    let y = circlesMat.data32F[i * 3 + 1];
-    let radius = circlesMat.data32F[i * 3 + 2];
+    let x = circlesMat.data32F[i * 3]*5;
+    let y = circlesMat.data32F[i * 3 + 1]*5;
+    let radius = circlesMat.data32F[i * 3 + 2]*5;
     let center = new cv.Point(x, y);
     cv.circle(displayMat, center, radius, [0, 0, 0, 255], 3);
-    xyFrequency.push(int(map(x*y,0,500*500,200,500)));
-    radiusTempo.push(map(radius, 0,200,50,300));
-    console.log(xyFrequency[i]);
+    xyFrequency.push(map(x*y,0,windowWidth*windowHeight,200,500,true));
+    radiusTempo.push(map(radius,0,300,50,300));
+    console.log("location " + xyFrequency[i]);
   }
   cv.imshow('imageCanvas', displayMat);
-  if (xyFrequency === 0) {
+  if (xyFrequency.length === 0) {
     $(this).text('Please try another image.');
   }
   else {
