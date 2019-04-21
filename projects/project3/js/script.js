@@ -86,6 +86,7 @@ function onOpenCvReady() {
 
 function detectCircles() {
   xyFrequency.length = 0;
+  radiusTempo.length = 0;
   $(this).text('Loading...');
   let srcMat = cv.imread('imageCanvas');
   let displayMat = srcMat.clone();
