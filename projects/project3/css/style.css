@@ -21,6 +21,14 @@ body {
   margin: auto;
 }
 
+.circlesButton {
+  display: none;
+}
+
+.refreshButton {
+  display: none;
+}
+
 #imageSrc {
   display: none;
 }

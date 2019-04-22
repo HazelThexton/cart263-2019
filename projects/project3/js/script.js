@@ -16,6 +16,7 @@ https://scotch.io/tutorials/introduction-to-computer-vision-in-javascript-using-
 let imgElement;
 let inputElement;
 let $circlesButton;
+let $refreshButton;
 // OpenCV matrices
 let srcMat;
 let displayMat;
@@ -49,6 +50,7 @@ function setup() {
   imgElement = document.getElementById('imageSrc');
   inputElement = document.getElementById('fileInput');
   $circlesButton = $('.circlesButton');
+  $refreshButton = $('.refreshButton');
   onOpenCvReady();
   // Creates the synth
   synth = new Pizzicato.Sound({
@@ -73,14 +75,13 @@ function onOpenCvReady() {
   // and resets the button and synth
   inputElement.onchange = function() {
     imgElement.src = URL.createObjectURL(event.target.files[0]);
-    // Resets the button and synth
-    reset();
   };
   // Once the image has loaded, displays the image on the canvas
   imgElement.onload = function() {
     let image = cv.imread(imgElement);
     cv.imshow('imageCanvas', image);
     image.delete();
+    $circlesButton.css({"display":"block"});
   };
   // When the user clicks the element, calls the function for detecting circles
   $circlesButton.on('click',detectCircles);
@@ -92,6 +93,8 @@ function onOpenCvReady() {
 function detectCircles() {
   // Unbinds the event handler to avoid repeat clicks
   $(this).unbind( "click" );
+  // Hides the input button
+  $('.input').css({"display":"none"});
   // Assigns our matrices- a source, an output, and one for the circle detection
   srcMat = cv.imread('imageCanvas');
   displayMat = srcMat.clone();
@@ -122,6 +125,7 @@ function detectCircles() {
   // is displayed and it doesn't attempt to play sound (otherwise we would get an error)
   if (xyFrequency.length === 0) {
     $(this).text('Please try another image.');
+
   }
   // Otherwise, another message displays and we trip a variable which allows
   // the sound to play
@@ -129,16 +133,7 @@ function detectCircles() {
     $(this).text('Done!');
     circlesDetected = true;
   }
-}
-
-// reset()
-//
-// resets the freq and tempo arrays, the button text, and pauses the synth
-function reset() {
-  synth.pause();
-  xyFrequency.length = 0;
-  radiusTempo.length = 0;
-  $circlesButton.text('click here');
+  $refreshButton.css({"display":"block"});
 }
 
 // draw()
@@ -151,6 +146,10 @@ function draw() {
       notes();
     }
   }
+  // When the user clicks the element, refreshes the page
+  $refreshButton.on('click', function(event) {
+location.reload();
+});
 }
 
 function notes() {
@@ -165,9 +164,14 @@ function notes() {
 function playNote() {
   // Pick a random frequency from the array
   let frequency = xyFrequency[xyIndex];
+
+  if (frequency === undefined) {
+    frequency = 200;
+  }
   // Set the synth's frequency
   synth.frequency = frequency;
   // If it's note already play, play the synth
+
   synth.play();
 
   setTimeout(notes,tempo);
