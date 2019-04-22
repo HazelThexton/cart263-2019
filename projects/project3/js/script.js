@@ -91,10 +91,9 @@ function onOpenCvReady() {
 //
 // Detects circles in the image and displays them over top of it
 function detectCircles() {
-  // Unbinds the event handler to avoid repeat clicks
-  $(this).unbind( "click" );
-  // Hides the input button
+  // Hides the input and circle detection buttons
   $('.input').css({"display":"none"});
+  $circlesButton.css({"display":"none"});
   // Assigns our matrices- a source, an output, and one for the circle detection
   srcMat = cv.imread('imageCanvas');
   displayMat = srcMat.clone();

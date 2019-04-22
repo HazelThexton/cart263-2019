@@ -7,17 +7,19 @@ so the canvas is flush with the top left corner.
 **********************************************/
 
 body {
+  font-family: 'Aclonica';
+  font-size: 22px;
   background-color: black;
   color: white;
   text-align: center;
-  padding: 5%;
+  padding: 1%;
   margin: auto;
   align-items: center;
 }
 
 .imageDisplay {
-  max-width: 600px;
-  max-height: 600px;
+  max-width: 500px;
+  max-height: 400px;
   margin: auto;
 }
 
@@ -25,8 +27,19 @@ body {
   display: none;
 }
 
+.circlesButton:hover {
+  color: grey;
+}
+
 .refreshButton {
   display: none;
+}
+.refreshButton:hover {
+  color: grey;
+}
+
+.input {
+  padding-left: 10%;
 }
 
 #imageSrc {
