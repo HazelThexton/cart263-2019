@@ -10,7 +10,7 @@ body {
   font-size: 22px;
   background-image: url('../assets/images/background.png');
   color: white;
-  text-shadow: 2px 2px #000000;
+  text-shadow: 3px 3px #000000;
   text-align: center;
   padding: 1%;
   margin: auto;
