@@ -1,20 +1,19 @@
 /*********************************************
 
-Here is a description of any special CSS used.
-In this case it's just padding and margin to 0
-so the canvas is flush with the top left corner.
+Synthesthesia CSS
 
 **********************************************/
 
+/* General syling */
 body {
   font-family: 'Aclonica';
   font-size: 22px;
-  background-color: black;
+  background-image: url('../assets/images/background.png');
   color: white;
+  text-shadow: 2px 2px #000000;
   text-align: center;
   padding: 1%;
   margin: auto;
-  align-items: center;
 }
 
 .imageDisplay {
@@ -23,6 +22,7 @@ body {
   margin: auto;
 }
 
+/* Initially hidden, shown when appropriate */
 .circlesButton {
   display: none;
 }
@@ -31,17 +31,22 @@ body {
   color: grey;
 }
 
+/* Initially hidden, shown when appropriate */
 .refreshButton {
   display: none;
 }
+
 .refreshButton:hover {
   color: grey;
 }
 
+/* Pushing it over to the right because I want the button to be in the middle */
 .input {
-  padding-left: 10%;
+  padding-left: 12%;
+  padding-bottom: 2%;
 }
 
+/* Always hidden, acts as a source */
 #imageSrc {
   display: none;
 }

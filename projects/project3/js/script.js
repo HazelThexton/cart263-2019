@@ -5,8 +5,9 @@
 Synthesthesia
 Hazel Thexton
 
-Turns images into sound.
+Turns images into synth tunes.
 
+Draws from this tutorial:
 https://scotch.io/tutorials/introduction-to-computer-vision-in-javascript-using-opencvjs
 
 ******************/
@@ -66,13 +67,12 @@ function setup() {
 
 // onOpenCvReady()
 //
-// Performs actions meant to prepare the page for use
+// Is called once OpenCV is loaded, and controls user input and image display.
 function onOpenCvReady() {
   // Once OpenCV is ready we display a prompt
   document.getElementById('status').innerHTML = 'Load an image to make it sing!';
 
   // Once user has input an image, changes the location of the image to the url of the input
-  // and resets the button and synth
   inputElement.onchange = function() {
     imgElement.src = URL.createObjectURL(event.target.files[0]);
   };
@@ -83,6 +83,7 @@ function onOpenCvReady() {
     image.delete();
     $circlesButton.css({"display":"block"});
   };
+
   // When the user clicks the element, calls the function for detecting circles
   $circlesButton.on('click',detectCircles);
 }
@@ -93,11 +94,13 @@ function onOpenCvReady() {
 function detectCircles() {
   // Unbinds the event handler to avoid repeat clicks
   $(this).unbind( "click" );
+  // Removes the hover effect
   $(this).hover(function() {
-  $(this).css("color","white")
-});
+    $(this).css("color","white")
+  });
   // Hides the input button
-  $('.input').css({"display":"none"});
+  $(".input").css({"display":"none"});
+
   // Assigns our matrices- a source, an output, and one for the circle detection
   srcMat = cv.imread('imageCanvas');
   displayMat = srcMat.clone();
@@ -120,10 +123,10 @@ function detectCircles() {
     // a circle is, the longer the note lasts) and pushes this to corresponding arrays
     xyFrequency.push(map(x*y,0,windowWidth*windowHeight,200,500,true));
     radiusTempo.push(map(radius,0,300,5,200,true));
-    console.log(xyFrequency[i]);
   }
   // Displays the completed image, with circles
   cv.imshow('imageCanvas', displayMat);
+
   // If no circles were detected (so the frequency array is empty), a message
   // is displayed and it doesn't attempt to play sound (otherwise we would get an error)
   if (xyFrequency.length === 0) {
@@ -136,12 +139,14 @@ function detectCircles() {
     $(this).text('Done!');
     circlesDetected = true;
   }
+
+  // Displays the refresh button
   $refreshButton.css({"display":"block"});
 }
 
 // draw()
 //
-// Description of draw()
+// Plays the sounds once the circles are detected and handles the refresh button
 function draw() {
   if (started === false) {
     if (circlesDetected === true) {
@@ -151,36 +156,34 @@ function draw() {
   }
   // When the user clicks the element, refreshes the page
   $refreshButton.on('click', function(event) {
-location.reload();
-});
+    location.reload();
+  });
 }
 
+// notes()
+//
+// Plays the notes at a tempo based on the radius of each circle
 function notes() {
-  // Assigns the correct tempo, based on circle radius.
+  // Assigns the correct tempo based on circle radius, based on current index
   tempo = radiusTempo[radiusIndex];
   setTimeout(playNote,tempo);
 }
 
 // playNote
 //
-// Assigns a frequency from the array
+// Assigns a frequency to the note based on the xy coordinates of each circle
 function playNote() {
-  // Pick a random frequency from the array
+  // Assigns the correct frequency from the array based on current index
   let frequency = xyFrequency[xyIndex];
 
-  if (frequency === undefined) {
-    frequency = 200;
-  }
   // Set the synth's frequency
   synth.frequency = frequency;
-  // If it's note already play, play the synth
 
+  //Plays the synth
   synth.play();
-
   setTimeout(notes,tempo);
 
-  // Advance the pattern by a beat
+  // Advances the freq and tempo indexes by one
   xyIndex = (xyIndex + 1) % xyFrequency.length;
-  // Advance the pattern by a beat
   radiusIndex = (radiusIndex + 1) % radiusTempo.length;
 }
